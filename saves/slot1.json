@@ -1,0 +1,301 @@
+{
+  "coins": 1214,
+  "collection": {
+    "uncommon": {
+      "Nidorino": 2,
+      "Kakuna": 2,
+      "Machoke": 4,
+      "Pokedex": 1,
+      "Energy Retrieval": 5,
+      "Revive": 2,
+      "Magmar": 3,
+      "Dewgong": 3,
+      "Magikarp": 1,
+      "Porygon": 2,
+      "Defender": 2,
+      "Super Potion": 1,
+      "Charmeleon": 1,
+      "Growlithe": 2,
+      "Pokemon Center": 1,
+      "Wartortle": 2,
+      "Ivysaur": 2,
+      "Haunter": 1,
+      "Kadabra": 4,
+      "Fearow": 1,
+      "Exeggutor": 1,
+      "Seel": 1,
+      "Dodrio": 1,
+      "Lickitung": 1,
+      "Seaking": 1,
+      "Professor Oak": 2,
+      "Slowbro": 4,
+      "Seadra": 3,
+      "Kingler": 4,
+      "Mr. Fuji": 2,
+      "Omastar": 1,
+      "Gastly": 2,
+      "Graveler": 2,
+      "Tentacruel": 1,
+      "Maintenance": 2,
+      "Dratini": 2
+    },
+    "common": {
+      "Starmie": 4,
+      "Voltorb": 3,
+      "Onix": 1,
+      "Vulpix": 1,
+      "Gastly": 1,
+      "Energy Removal": 3,
+      "Pidgey": 1,
+      "Sandshrew": 2,
+      "Squirtle": 1,
+      "Bulbasaur": 2,
+      "Bill": 3,
+      "Caterpie": 1,
+      "Pikachu": 3,
+      "Charmander": 1,
+      "Venonat": 3,
+      "Rattata": 1,
+      "Cubone": 1,
+      "Metapod": 1,
+      "Krabby": 1,
+      "Mysterious Fossil": 1,
+      "Grimer": 1,
+      "Recycle": 2,
+      "Horsea": 1,
+      "Meowth": 2,
+      "Jigglypuff": 1,
+      "Bellsprout": 3,
+      "Nidoran\u2640": 2,
+      "Eevee": 2,
+      "Rhyhorn": 1,
+      "Mankey": 1,
+      "Oddish": 2,
+      "Tangela": 1
+    },
+    "rare": {
+      "Super Energy Removal": 1,
+      "Lass": 1,
+      "Pokemon Trader": 1,
+      "Devolution Spray": 1,
+      "Venomoth": 1,
+      "Zapdos": 2,
+      "Clefairy Doll": 1
+    },
+    "energy": {
+      "Grass Energy": 2,
+      "Lightning Energy": 1,
+      "Fighting Energy": 2,
+      "Fire Energy": 2,
+      "Psychic Energy": 1,
+      "Water Energy": 1
+    },
+    "rare holo": {
+      "Poliwrath": 1,
+      "Alakazam": 1,
+      "Ditto": 1,
+      "Victreebel": 1,
+      "Snorlax": 1,
+      "Electrode": 1,
+      "Ninetales": 1
+    }
+  },
+  "collection_by_set": {
+    "Base Pack Set": {
+      "uncommon": {
+        "Nidorino": 2,
+        "Kakuna": 2,
+        "Machoke": 2,
+        "Pokedex": 1,
+        "Energy Retrieval": 2,
+        "Revive": 1,
+        "Magmar": 1,
+        "Dewgong": 2,
+        "Magikarp": 1,
+        "Porygon": 2,
+        "Defender": 2,
+        "Super Potion": 1,
+        "Charmeleon": 1,
+        "Growlithe": 1,
+        "Pokemon Center": 1,
+        "Wartortle": 1,
+        "Ivysaur": 1,
+        "Haunter": 1,
+        "Kadabra": 2
+      },
+      "common": {
+        "Starmie": 3,
+        "Voltorb": 1,
+        "Onix": 1,
+        "Vulpix": 1,
+        "Gastly": 1,
+        "Energy Removal": 2,
+        "Pidgey": 1,
+        "Sandshrew": 2,
+        "Squirtle": 1,
+        "Bulbasaur": 2,
+        "Bill": 1,
+        "Caterpie": 1,
+        "Pikachu": 1
+      },
+      "rare": {
+        "Super Energy Removal": 1,
+        "Lass": 1,
+        "Pokemon Trader": 1,
+        "Devolution Spray": 1
+      },
+      "energy": {
+        "Grass Energy": 1,
+        "Lightning Energy": 1,
+        "Fighting Energy": 1,
+        "Fire Energy": 1,
+        "Psychic Energy": 1
+      },
+      "rare holo": {
+        "Poliwrath": 1
+      }
+    },
+    "Base Set 2": {
+      "common": {
+        "Charmander": 1,
+        "Venonat": 1,
+        "Voltorb": 2,
+        "Rattata": 1,
+        "Bill": 1,
+        "Cubone": 1,
+        "Metapod": 1,
+        "Starmie": 1
+      },
+      "uncommon": {
+        "Dewgong": 1,
+        "Fearow": 1,
+        "Growlithe": 1,
+        "Exeggutor": 1,
+        "Seel": 1,
+        "Dodrio": 1,
+        "Lickitung": 1,
+        "Seaking": 1,
+        "Professor Oak": 1
+      },
+      "rare": {
+        "Venomoth": 1
+      },
+      "energy": {
+        "Fire Energy": 1,
+        "Grass Energy": 1
+      },
+      "rare holo": {
+        "Alakazam": 1
+      }
+    },
+    "Fossil": {
+      "uncommon": {
+        "Slowbro": 4,
+        "Seadra": 3,
+        "Kingler": 4,
+        "Mr. Fuji": 2,
+        "Magmar": 2,
+        "Omastar": 1,
+        "Gastly": 2,
+        "Graveler": 2,
+        "Tentacruel": 1
+      },
+      "common": {
+        "Krabby": 1,
+        "Mysterious Fossil": 1,
+        "Grimer": 1,
+        "Recycle": 2,
+        "Horsea": 1
+      },
+      "rare": {
+        "Zapdos": 2
+      },
+      "rare holo": {
+        "Ditto": 1
+      }
+    },
+    "Jungle": {
+      "common": {
+        "Meowth": 2,
+        "Jigglypuff": 1,
+        "Bellsprout": 3,
+        "Pikachu": 2,
+        "Nidoran\u2640": 2,
+        "Eevee": 2,
+        "Rhyhorn": 1,
+        "Venonat": 2,
+        "Mankey": 1,
+        "Oddish": 2
+      },
+      "rare holo": {
+        "Victreebel": 1,
+        "Snorlax": 1,
+        "Electrode": 1
+      }
+    },
+    "Expansion Pack": {
+      "common": {
+        "Tangela": 1,
+        "Energy Removal": 1,
+        "Bill": 1
+      },
+      "uncommon": {
+        "Maintenance": 2,
+        "Energy Retrieval": 3,
+        "Machoke": 2,
+        "Revive": 1,
+        "Kadabra": 2,
+        "Dratini": 2,
+        "Professor Oak": 1,
+        "Wartortle": 1,
+        "Ivysaur": 1
+      },
+      "rare holo": {
+        "Ninetales": 1
+      },
+      "energy": {
+        "Fighting Energy": 1,
+        "Water Energy": 1
+      },
+      "rare": {
+        "Clefairy Doll": 1
+      }
+    }
+  },
+  "packs_opened": 15,
+  "location": "JPN",
+  "graphics_mode": "real",
+  "palette": "Dark",
+  "pack_inventory": {
+    "Base Pack Set": 0,
+    "Base Set 2": 0,
+    "Expansion Pack": 2,
+    "Pok\u00e9mon Jungle": 2,
+    "Mystery of the Fossils": 2,
+    "Jungle": 1,
+    "Fossil": 0
+  },
+  "profile": {
+    "icon": "Trainer",
+    "level": 7,
+    "xp": 4606,
+    "title": "Rookie",
+    "achievements": [
+      "first_steps",
+      "pack_opener",
+      "card_collector",
+      "rare_hunter",
+      "holo_master",
+      "pack_addict",
+      "coin_collector",
+      "novice_trainer"
+    ],
+    "name": "Player",
+    "xp_current": 706,
+    "xp_max": 1900,
+    "unlocked_avatars": [
+      "Trainer"
+    ],
+    "total_coins_earned": 4683
+  }
+}
