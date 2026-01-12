@@ -1,6 +1,5 @@
 # Pymon Pack Opener
 
-Interactive booster pack opening simulator for Pokemon and Yu-Gi-Oh! TCG with collection system, progression, and achievements.
 
 ## Features
 
