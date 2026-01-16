@@ -71,33 +71,5 @@
       "common": 7
     },
     "holo_rare_chance": 1.0
-  },
-
-  "Yu-Gi-Oh! Trading Card Game - Series 1": {
-    "language": "ENG",
-    "cards_per_pack": 5,
-    "distribution": {
-      "ultra_rare": 0.0333,
-      "super_rare": 0.05,
-      "rare": 0.1167,
-      "common": 0.8
-    },
-    "pull_rates_per_pack": {
-      "ultra_rare": "~3.33% (1 em ~30 packs)",
-      "super_rare": "~3.33% a ~6.67% (1-2 em ~30 packs)",
-      "rare": "~10.00% a ~13.33% (3-4 em ~30 packs)",
-      "at_least_rare": "~16.67% a ~23.33% por pack"
-    },
-    "notes": "Série 1 original de 1999 - Vol.1 OCG (Japão). Baseado em dados de collation: ~1 UR, ~1-2 SR, ~3-4 R por BOX (30 packs). Sem foil garantida. 40 cartas totais no set."
-  },
-
-  "Booster1": {
-    "language": "ENG",
-    "cards_per_pack": 5,
-    "distribution": {
-      "rare": 0.125,
-      "common": 0.875
-    },
-    "notes": "Booster 1 (Carddass era). Distribuição do set: 5/40 cartas são Rare (12.5%). Pull rate real indeterminado (sem dados de collation confirmados). Estimativa baseada em padrão Vol.1: assumir ~12.5% Rare por pack."
   }
 }

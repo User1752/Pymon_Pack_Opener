@@ -55,49 +55,6 @@
     "Psych Out (Psychic/Water)"
   ],
   "info": "Base Set 2 is the fourth main expansion of the Pokémon Trading Card Game, released on February 24, 2000. It has no Japanese equivalent and is composed of reprints from the Base Set and Jungle expansions. It was the first English expansion to use the Cosmos Holofoil. Some cards from Base Set and Jungle were omitted or merged."
-  },
-
-  "Yu-Gi-Oh! Trading Card Game - Series 1": {
-    "language": "JPN",
-    "cards_in_set": 40,
-    "set_number": "Vol.1",
-    "release_date": "February 4, 1999",
-    "title_en": "Yu-Gi-Oh! OCG Vol.1",
-    "title_jp": "遊戯王OCG Vol.1",
-    "info": "Vol.1, short for Volume 1, is a Booster Pack that was released on February 4, 1999 as the first set in the Yu-Gi-Oh! Official Card Game. Like all Series 1 sets, Vol.1 cards used the Series 1 card layout, distinguished from later layouts by the lack of a Card Number beneath the card's artwork and the Eye of Anubis Hologram in its lower-right corner. This legendary first set features iconic cards like Blue-Eyes White Dragon and Dark Magician.",
-    "special_features": "Series 1 Card Layout - Eye of Anubis Hologram - Historic First Set"
-  },
-
-  "Booster1": {
-    "language": "JPN",
-    "cards_in_set": 40,
-    "set_number": "Booster 1",
-    "release_date": "March 1, 1999",
-    "title_en": "Yu-Gi-Oh! OCG Booster 1",
-    "title_jp": "遊戯王OCG ブースター1",
-    "info": "Booster 1 was released on March 1, 1999 as one of the very first Booster Packs in the Yu-Gi-Oh! Official Card Game—preceded only by Vol.1, which was released the month prior. Like all Series 1 sets, Booster 1 cards used the Series 1 card layout, distinguished from later layouts by the lack of a Card Number beneath the card's artwork and the Eye of Anubis Hologram in its lower-right corner.",
-    "special_features": "Series 1 Card Layout - Eye of Anubis Hologram - Early Booster Pack Era"
-  },
-
-  "Starter Box Theatrical Release": {
-    "language": "JPN",
-    "cards_in_set": 50,
-    "set_number": "Starter Box",
-    "release_date": "March 6, 1999 (Theatrical Release) / March 18, 1999 (General Release)",
-    "title_en": "Yu-Gi-Oh! OCG Starter Box - Theatrical Release",
-    "title_jp": "遊戯王OCG スターターボックス 劇場版限定",
-    "info": "Starter Box: Theatrical Release is the first Starter Deck in the Yu-Gi-Oh! Official Card Game (OCG). It was released in theaters on March 6, 1999, coinciding with the Japanese premiere of Yu-Gi-Oh! (1999 film). The official, widespread release date was twelve days later, on March 18. In addition to the cards, it included a Deck box with belt clip, a Life Points calculator, six Star Chips, and a playmat.",
-    "special_features": "First Starter Deck - Theatrical Release Exclusive - Complete Deck Building Kit - Includes Accessories"
-  },
-
-  "Starter Box": {
-    "language": "JPN",
-    "cards_in_set": 51,
-    "set_number": "Starter Box",
-    "release_date": "March 18, 1999",
-    "title_en": "Yu-Gi-Oh! OCG Starter Box",
-    "title_jp": "遊戯王OCG スターターボックス",
-    "info": "The Starter Box is the first official Starter Deck in the Yu-Gi-Oh! Official Card Game (OCG), released on March 18, 1999. In addition to the carefully curated cards for new players, both releases of the Starter Box included a Deck box with belt clip, a Life Points calculator, six Star Chips and a playmat—everything needed to begin playing the Yu-Gi-Oh! Trading Card Game.",
-    "special_features": "First Starter Deck - Complete Gameplay Package - Includes Deck Box, Life Counter, Star Chips, Playmat"
   }
+
 }

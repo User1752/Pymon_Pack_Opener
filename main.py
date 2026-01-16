@@ -40,12 +40,9 @@ from widgets.utils.card_images import CardImageSystem
 # Diretórios do sistema
 SAVE_DIR = os.path.join(BASE_DIR, "saves")
 CARD_IMAGES_DIR = os.path.join(BASE_DIR, "assets", "card_images")
-PACK_IMAGES_DIR = os.path.join(BASE_DIR, "assets", "pack_images")
 SETTINGS_FILE = os.path.join(SAVE_DIR, "settings.json")
-PACKS_FILE = os.path.join(BASE_DIR, "data", "packs_pokemon.json")
+PACKS_FILE = os.path.join(BASE_DIR, "data", "packs.json")
 PACKS_INFO_FILE = os.path.join(BASE_DIR, "data", "packs_info.json")
-PACKS_YUGIHO_FILE = os.path.join(BASE_DIR, "data", "packs_yugiho.json")
-PACKS_YUGIHO_BOXES_FILE = os.path.join(BASE_DIR, "data", "packs_yugiho_boxes.json")
 
 
 class PackOpenerGUI:
@@ -66,21 +63,15 @@ class PackOpenerGUI:
         # Cria diretórios necessários
         os.makedirs(SAVE_DIR, exist_ok=True)
         os.makedirs(CARD_IMAGES_DIR, exist_ok=True)
-        os.makedirs(PACK_IMAGES_DIR, exist_ok=True)
         
         # Carrega dados do jogo
         self.packs = load_packs_from_json(PACKS_FILE)
-        self.packs_yugiho = load_packs_from_json(PACKS_YUGIHO_FILE)
-        self.packs_yugiho_boxes = load_packs_from_json(PACKS_YUGIHO_BOXES_FILE)
         self.pack_info = load_pack_info(PACKS_INFO_FILE)
         self.pack_totals = {p.name: len(p.pokemons) for p in self.packs}
         
         # Carrega imagens
         self.image_loader.load_set_image_maps(self.packs)
         self.card_image_system.load_set_image_maps(self.packs)
-        
-        # NOVO: Carrega imagens Yu-Gi-Oh
-        self._load_yugioh_card_images()
         
         # Estado do jogo
         self.wallet = Wallet(coins=0)
@@ -91,7 +82,7 @@ class PackOpenerGUI:
         self.opened_cards = []
         self.pack_languages = {p.name: p.language.upper() for p in self.packs}
         # On/OFF Debug Mode
-        self.debug_mode = True  
+        self.debug_mode = False  
         
         # Sistema de inventário de packs
         self.pack_inventory = {
@@ -100,12 +91,7 @@ class PackOpenerGUI:
             # Adiciona packs JP para teste
             "Expansion Pack": 3,
             "Pokémon Jungle": 2,
-            "Mystery of the Fossils": 2,
-            # NOVO: Packs Yu-Gi-Oh
-            "Yu-Gi-Oh! Trading Card Game - Series 1": 2,
-            "Booster1": 2,
-            "Vol.2": 2,
-            "Booster 2": 2
+            "Mystery of the Fossils": 2
         }
         
         # Sistema de perfil
@@ -145,6 +131,9 @@ class PackOpenerGUI:
         # ADICIONA: Callback para salvar o jogo completo
         self.shop_system.save_game_callback = self.save_game
         
+        # ADICIONA: Callback para verificar modo debug
+        self.shop_system.is_debug_mode = lambda: self.debug_mode
+        
         # Inicializa visualizador de coleção
         self.collection_viewer = CollectionViewer(
             self.root,
@@ -156,7 +145,6 @@ class PackOpenerGUI:
         )
         
         self.setup_ui()
-        self.refresh_theme()
 
     def _required_level_for_pack(self, pack) -> int:
         """Retorna nível necessário para desbloquear pack."""
@@ -199,92 +187,58 @@ class PackOpenerGUI:
             self.profile_manager = ProfileManager(settings["profile"])
             self.profile = self.profile_manager.profile
 
-    def _load_yugioh_card_images(self):
-        """Carrega mapeamentos de imagens Yu-Gi-Oh da pasta local."""
-        yugioh_image_files = [
-            os.path.join(CARD_IMAGES_DIR, "yugioh_vol1_images.json"),
-            os.path.join(CARD_IMAGES_DIR, "yugioh_booster1_images.json"),
-            os.path.join(CARD_IMAGES_DIR, "yugioh_vol2_images.json"),
-            os.path.join(CARD_IMAGES_DIR, "yugioh_booster2_images.json"),
-        ]
-        
-        # Inicializa card_images se não existir
-        if not hasattr(self.card_image_system, 'card_images'):
-            self.card_image_system.card_images = {}
-        
-        # Diretório base das imagens descarregadas
-        images_base_dir = os.path.join(BASE_DIR, "images")
-        
-        for image_file in yugioh_image_files:
-            if os.path.exists(image_file):
-                try:
-                    with open(image_file, 'r', encoding='utf-8') as f:
-                        data = json.load(f)
-                    pack_slug = data.get("pack_slug", "")
-                    cards = data.get("cards", {})
-                    folder_name = data.get("folder_name", "")
-                    
-                    # Armazena no card_image_system com caminhos locais
-                    if pack_slug and cards:
-                        if pack_slug not in self.card_image_system.card_images:
-                            self.card_image_system.card_images[pack_slug] = {}
-                        
-                        # Converte URLs para caminhos locais
-                        for card_name, image_url in cards.items():
-                            # Se for URL, converte para caminho local
-                            if image_url.startswith('http'):
-                                # Extrai nome do ficheiro da URL ou gera a partir do nome da carta
-                                image_filename = f"{card_name}.jpg"
-                                image_path = os.path.join(images_base_dir, folder_name, image_filename)
-                                
-                                # Usa caminho local se ficheiro existe
-                                if os.path.exists(image_path):
-                                    self.card_image_system.card_images[pack_slug][card_name] = image_path
-                                else:
-                                    # Fallback para URL original
-                                    self.card_image_system.card_images[pack_slug][card_name] = image_url
-                            else:
-                                # Já é um caminho local (do JSON atualizado)
-                                self.card_image_system.card_images[pack_slug][card_name] = image_url
-                        
-                        print(f"✅ Loaded {len(cards)} Yu-Gi-Oh images for {pack_slug}")
-                    else:
-                        print(f"⚠️ Invalid data in {os.path.basename(image_file)}")
-                except Exception as e:
-                    print(f"⚠️ Failed to load {os.path.basename(image_file)}: {e}")
-            else:
-                print(f"⚠️ File not found: {image_file}")
-        
-        print(f"📊 Available card_images keys: {list(self.card_image_system.card_images.keys())}")
-
     def save_game(self, slot: int, silent: bool = False):
         """Grava estado do jogo."""
-        # DEBUG: Mostra inventário ANTES de salvar
         print(f"\n💾 SAVING GAME TO SLOT {slot}")
-        print(f"📦 Pack inventory BEFORE save: {self.pack_inventory}")
         
-        # Normaliza location antes de salvar
+        # ✅ DEBUG DETALHADO DO INVENTÁRIO
+        print(f"📦 Pack inventory BEFORE serialization:")
+        for pack_name, count in self.pack_inventory.items():
+            print(f"   '{pack_name}': {count}")
+        
+        print(f"💰 Coins: {self.wallet.coins}")
+        print(f"📚 Collection keys: {list(self.collection.keys())}")
+        print(f"🎒 Packs opened: {self.packs_opened}")
+        
+        # Normaliza location para salvar
         location_to_save = self.location
         if self.location.startswith("EN"):
             location_to_save = "ENG"
         elif self.location.startswith("JP"):
             location_to_save = "JPN"
         
+        # CORRIGIDO: Serializa collection corretamente (converte para dicts puros)
+        serialized_collection = {}
+        for rarity, cards in self.collection.items():
+            serialized_collection[rarity] = dict(cards)  # Converte para dict puro
+        
+        serialized_collection_by_set = {}
+        for set_name, rarities in self.collection_by_set.items():
+            serialized_collection_by_set[set_name] = {}
+            for rarity, cards in rarities.items():
+                serialized_collection_by_set[set_name][rarity] = dict(cards)
+        
         data = {
             "coins": self.wallet.coins,
-            "collection": self.collection,
-            "collection_by_set": self.collection_by_set,
+            "collection": serialized_collection,
+            "collection_by_set": serialized_collection_by_set,
             "packs_opened": self.packs_opened,
-            "location": location_to_save,  # Usa versão normalizada
+            "location": location_to_save,
             "graphics_mode": self.graphics_mode,
             "palette": self.current_palette,
-            "pack_inventory": dict(self.pack_inventory),
-            "profile": self.profile_manager.to_dict()
+            "pack_inventory": dict(self.pack_inventory),  # ✅ Copia ATUAL do inventário
+            "profile": self.profile_manager.to_dict(),
+            "pack_languages": dict(self.pack_languages),
+            "collection_set_filters": dict(self.collection_set_filters)
         }
         
-        print(f"Coins being saved: {data['coins']}")
-        print(f"Packs opened: {data['packs_opened']}")
-        print(f"Pack inventory in save data: {data['pack_inventory']}\n")
+        # ✅ DEBUG: Confirma o que vai ser salvo
+        print(f"✅ Data prepared for save:")
+        print(f"   - Coins: {data['coins']}")
+        print(f"   - Pack inventory TO BE SAVED:")
+        for pack_name, count in data['pack_inventory'].items():
+            print(f"      '{pack_name}': {count}")
+        print()
         
         success = self.settings_manager.save_game(slot, data)
         
@@ -303,94 +257,105 @@ class PackOpenerGUI:
             messagebox.showerror("Error", f"No save found in slot {slot}")
             return
         
-        # DEBUG: Mostra dados carregados
         print(f"\n📁 LOADING SAVE FROM SLOT {slot}")
         print(f"Data keys: {list(data.keys())}")
-        print(f"Coins in save: {data.get('coins', 'NOT FOUND')}")
         
-        # Atualiza dados do jogo
+        # ✅ CORRIGIDO: Carrega TUDO
         self.wallet.coins = data.get("coins", 0)
-        self.collection = data.get("collection", {})
-        self.collection_by_set = data.get("collection_by_set", {})
         self.packs_opened = data.get("packs_opened", 0)
         
-        # Normaliza location para formato consistente (sempre 3 chars)
+        # ✅ Carrega collection (converte de volta para defaultdict se necessário)
+        loaded_collection = data.get("collection", {})
+        self.collection = {}
+        for rarity, cards in loaded_collection.items():
+            self.collection[rarity] = dict(cards)
+        
+        # ✅ Carrega collection_by_set
+        loaded_collection_by_set = data.get("collection_by_set", {})
+        self.collection_by_set = {}
+        for set_name, rarities in loaded_collection_by_set.items():
+            self.collection_by_set[set_name] = {}
+            for rarity, cards in rarities.items():
+                self.collection_by_set[set_name][rarity] = dict(cards)
+        
+        # ✅ Carrega pack_languages
+        self.pack_languages = data.get("pack_languages", {p.name: p.language.upper() for p in self.packs})
+        
+        # ✅ Carrega collection_set_filters
+        self.collection_set_filters = data.get("collection_set_filters", {p.name: True for p in self.packs})
+        
+        # Normaliza location
         loaded_location = data.get("location", "ENG")
-        if loaded_location == "EN" or loaded_location == "ENG":
+        if loaded_location in ["EN", "ENG"]:
             self.location = "ENG"
-        elif loaded_location == "JP" or loaded_location == "JPN":
+        elif loaded_location in ["JP", "JPN"]:
             self.location = "JPN"
         else:
-            self.location = "ENG"  # Default
+            self.location = "ENG"
         
+        # ✅ Carrega pack_inventory
         self.pack_inventory = data.get("pack_inventory", {})
         
-        # DEBUG: Confirma valores carregados
-        print(f"✅ Wallet.coins set to: {self.wallet.coins}")
-        print(f"✅ Packs opened: {self.packs_opened}")
-        print(f"✅ Location: {self.location}")
-        print(f"✅ Pack inventory: {self.pack_inventory}\n")
-        
-        # Atualiza perfil
+        # ✅ Carrega perfil
         if "profile" in data:
             self.profile_manager.update_from_dict(data["profile"])
             self.profile = self.profile_manager.profile
         
-        # Atualiza configurações de UI
-        graphics_mode = data.get("graphics_mode", "real")
-        self.graphics_mode = graphics_mode
-        self.set_graphics_mode(graphics_mode)
+        # Carrega configurações de UI
+        self.graphics_mode = data.get("graphics_mode", "real")
+        self.set_graphics_mode(self.graphics_mode)
         
-        # Paleta ignorada (design moderno usa cores fixas)
-        # self.current_palette mantém valor padrão
+        # DEBUG: Confirma valores carregados
+        print(f"✅ LOAD COMPLETE:")
+        print(f"   - Wallet.coins: {self.wallet.coins}")
+        print(f"   - Packs opened: {self.packs_opened}")
+        print(f"   - Location: {self.location}")
+        print(f"   - Pack inventory: {self.pack_inventory}")
+        print(f"   - Collection rarities: {list(self.collection.keys())}")
+        print(f"   - Unique cards in collection: {sum(len(cards) for cards in self.collection.values())}")
+        print(f"   - Sets in collection: {list(self.collection_by_set.keys())}")
+        print(f"   - Profile level: {self.profile.get('level', 1)}")
+        print(f"   - Profile XP: {self.profile.get('xp_current', 0)}/{self.profile.get('xp_max', 100)}\n")
         
         # Atualiza UI
         self.update_stats_labels()
         self.show_welcome()
         
-        messagebox.showinfo("Success", f"Game loaded from slot {slot}\nCoins: {self.wallet.coins}")
+        # Mostra mensagem com estatísticas
+        unique_cards = sum(len(cards) for cards in self.collection.values())
+        messagebox.showinfo(
+            "Game Loaded Successfully", 
+            f"Loaded from slot {slot}\n\n"
+            f"💰 Coins: {self.wallet.coins}\n"
+            f"🎴 Packs opened: {self.packs_opened}\n"
+            f"📚 Unique cards: {unique_cards}\n"
+            f"⭐ Level: {self.profile.get('level', 1)}"
+        )
 
     def open_pack(self, pack: Pack):
         """Abre pack e mostra cartas obtidas."""
         pack_name = pack.name
         
-        # Em modo debug, ignora verificação de inventário
-        if not self.debug_mode:
-            # Verifica se tem pack no inventário
-            has_pack_in_inventory = self.pack_inventory.get(pack_name, 0) > 0
-            
-            if not has_pack_in_inventory:
-                messagebox.showwarning("No Packs Available",
-                    f"You don't have any {pack_name} packs!\n\n"
-                    f"Go to the Shop to buy packs with coins.\n\n"
-                    f"Price: {pack.price} coins per pack")
-                return
-            
-            # Usa pack do inventário (só em modo normal)
-            self.pack_inventory[pack_name] -= 1
-            print(f"PACK: Used 1x {pack_name} (remaining: {self.pack_inventory[pack_name]})")
-        else:
-            print(f"🔓 DEBUG MODE: Pack consumption disabled - Opening {pack_name}")
+        # Verifica se tem pack no inventário
+        has_pack_in_inventory = self.pack_inventory.get(pack_name, 0) > 0
         
-        # Define contexto para carregamento de imagens - tenta múltiplos slugs
+        if not has_pack_in_inventory:
+            messagebox.showwarning("No Packs Available",
+                f"You don't have any {pack_name} packs!\n\n"
+                f"Go to the Shop to buy packs with coins.\n\n"
+                f"Price: {pack.price} coins per pack")
+            return
+        
+        # Usa pack do inventário
+        self.pack_inventory[pack_name] -= 1
+        print(f"PACK: Used 1x {pack_name} (remaining: {self.pack_inventory[pack_name]})")
+        
+        # Define contexto para carregamento de imagens
         pack_slug = self.image_loader._pack_to_slug(pack.name)
-        
-        # Para packs Yu-Gi-Oh, tenta slugs alternativos
-        if "yu-gi-oh" in pack_name.lower():
-            yugioh_slugs = {
-                "Yu-Gi-Oh! Trading Card Game - Series 1": "yugioh_vol1",
-                "Booster1": "yugioh_booster1",
-                "Vol.2": "yugioh_vol2",
-                "Booster 2": "yugioh_booster2",
-            }
-            pack_slug = yugioh_slugs.get(pack_name, pack_slug)
-        
         self.image_loader.set_current_pack(pack_slug)
         self.card_image_system.set_current_pack(pack_slug)
         
         print(f"\nOPENING PACK: {pack_name}")
-        print(f"Pack slug: {pack_slug}")
-        print(f"Available slugs in card_image_system: {list(self.card_image_system.card_images.keys())}")
         print(f"Wallet BEFORE: {self.wallet.coins} coins")
         
         # Abre pack
@@ -498,15 +463,6 @@ class PackOpenerGUI:
     def _place_card(self, parent, card, row, col):
         """Coloca widget de carta na grid."""
         reward = reward_for_rarity(card.rarity)
-        
-        # Debug: tenta carregar imagem e mostra resultado
-        image_url = None
-        if hasattr(self.card_image_system, 'card_images'):
-            current_pack = getattr(self.card_image_system, 'current_pack', None)
-            if current_pack and current_pack in self.card_image_system.card_images:
-                image_url = self.card_image_system.card_images[current_pack].get(card.name)
-                print(f"🖼️ Card '{card.name}' -> URL: {image_url[:50] if image_url else 'NOT FOUND'}")
-        
         widget = CardWidget(
             parent, card, reward,
             graphics_mode=self.graphics_mode,
@@ -713,122 +669,7 @@ class PackOpenerGUI:
         bind_hover_effect(cta_btn, Colors.PRIMARY, Colors.PRIMARY_HOVER)
     
     def open_pack_menu(self):
-        """Mostra menu de seleção de jogo (Pokemon ou Yu-Gi-Oh)."""
-        self.clear_content()
-        
-        # Cabeçalho
-        create_header(
-            self.content_frame,
-            "SELECT GAME",
-            "Choose which TCG you want to collect"
-        )
-        
-        # Container para os dois botões de jogo
-        game_selector = tk.Frame(self.content_frame, bg=Colors.BG_DARK)
-        game_selector.pack(fill=tk.BOTH, expand=True, padx=60, pady=60)
-        
-        # ==================== POKEMON CARD ==================== #
-        pokemon_card = tk.Frame(game_selector, bg=Colors.BG_CARD, width=350, height=400)
-        pokemon_card.pack(side=tk.LEFT, padx=30, pady=0)
-        pokemon_card.pack_propagate(False)
-        
-        # Borda superior
-        tk.Frame(pokemon_card, bg=Colors.PRIMARY, height=Sizes.BORDER_MEDIUM).pack(fill=tk.X)
-        
-        pokemon_content = tk.Frame(pokemon_card, bg=Colors.BG_CARD)
-        pokemon_content.pack(fill=tk.BOTH, expand=True, padx=30, pady=30)
-        
-        tk.Label(
-            pokemon_content,
-            text="🎮",
-            font=get_font(Fonts.SIZE_HUGE),
-            bg=Colors.BG_CARD,
-            fg=Colors.PRIMARY
-        ).pack(pady=(10, 20))
-        
-        tk.Label(
-            pokemon_content,
-            text="POKÉMON TCG",
-            font=get_font(Fonts.SIZE_HEADING, Fonts.BOLD),
-            bg=Colors.BG_CARD,
-            fg=Colors.TEXT_PRIMARY
-        ).pack(pady=(0, 10))
-        
-        tk.Label(
-            pokemon_content,
-            text="Collect legendary Pokémon cards\nfrom classic sets",
-            font=get_font(Fonts.SIZE_NORMAL),
-            bg=Colors.BG_CARD,
-            fg=Colors.TEXT_SECONDARY,
-            justify=tk.CENTER
-        ).pack(pady=(0, 30))
-        
-        pokemon_btn = create_button(
-            pokemon_content,
-            "OPEN POKÉMON PACKS",
-            lambda: self._show_pokemon_packs(),
-            Colors.PRIMARY,
-            padx=30,
-            pady=15
-        )
-        pokemon_btn.pack(fill=tk.X, pady=(20, 0))
-        bind_hover_effect(pokemon_btn, Colors.PRIMARY, Colors.PRIMARY_HOVER)
-        
-        # ==================== YU-GI-OH CARD ==================== #
-        yugioh_card = tk.Frame(game_selector, bg=Colors.BG_CARD, width=350, height=400)
-        yugioh_card.pack(side=tk.RIGHT, padx=30, pady=0)
-        yugioh_card.pack_propagate(False)
-        
-        # Borda superior
-        tk.Frame(yugioh_card, bg=Colors.SECONDARY, height=Sizes.BORDER_MEDIUM).pack(fill=tk.X)
-        
-        yugioh_content = tk.Frame(yugioh_card, bg=Colors.BG_CARD)
-        yugioh_content.pack(fill=tk.BOTH, expand=True, padx=30, pady=30)
-        
-        tk.Label(
-            yugioh_content,
-            text="⚔️",
-            font=get_font(Fonts.SIZE_HUGE),
-            bg=Colors.BG_CARD,
-            fg=Colors.SECONDARY
-        ).pack(pady=(10, 20))
-        
-        tk.Label(
-            yugioh_content,
-            text="YU-GI-OH! TCG",
-            font=get_font(Fonts.SIZE_HEADING, Fonts.BOLD),
-            bg=Colors.BG_CARD,
-            fg=Colors.TEXT_PRIMARY
-        ).pack(pady=(0, 10))
-        
-        tk.Label(
-            yugioh_content,
-            text="Summon powerful monsters\nand spell cards",
-            fg=Colors.TEXT_SECONDARY,
-            justify=tk.CENTER
-        ).pack(pady=(0, 30))
-        
-        yugioh_btn = create_button(
-            yugioh_content,
-            "OPEN YU-GI-OH PACKS",
-            lambda: self._show_yugioh_packs(),
-            Colors.SECONDARY,
-            padx=30,
-            pady=15
-        )
-        yugioh_btn.pack(fill=tk.X, pady=(20, 0))
-        bind_hover_effect(yugioh_btn, Colors.SECONDARY, Colors.SECONDARY_HOVER)
-
-    def _show_pokemon_packs(self):
-        """Mostra menu de packs Pokémon."""
-        self._show_game_packs("pokemon")
-
-    def _show_yugioh_packs(self):
-        """Mostra menu de packs Yu-Gi-Oh."""
-        self._show_game_packs("yugioh")
-
-    def _show_game_packs(self, game_type: str):
-        """Mostra packs para o jogo selecionado."""
+        """Mostra menu de seleção de packs em grid 4x4."""
         self.clear_content()
         
         # DEBUG: Mostra inventário atual
@@ -848,52 +689,25 @@ class PackOpenerGUI:
         # Obtém packs para localização atual (normaliza para 2 caracteres)
         current_location = self.location.upper()[:2]  # ENG -> EN, JPN -> JP
         
-        if game_type == "pokemon":
-            # Filtra packs Pokémon (de packs_pokemon.json)
-            packs_for_loc = [
-                p for p in self.packs 
-                if p.language.upper()[:2] == current_location
-                and p.name not in excluded_packs
-                and "promo" not in p.name.lower()
-                and "exclusive" not in p.name.lower()
-            ]
-            game_name = "POKÉMON"
-            game_icon = "🎮"
-            game_color = Colors.PRIMARY
-        else:  # yugioh
-            # Filtra packs Yu-Gi-Oh (de packs_yugiho.json - apenas booster packs)
-            packs_for_loc = [
-                p for p in self.packs_yugiho 
-                if p.language.upper()[:2] == current_location
-            ]
-            game_name = "YU-GI-OH!"
-            game_icon = "⚔️"
-            game_color = Colors.SECONDARY
-        
+        packs_for_loc = [
+            p for p in self.packs 
+            if p.language.upper()[:2] == current_location  # Compara só 2 chars
+            and p.name not in excluded_packs
+            and "promo" not in p.name.lower()
+            and "exclusive" not in p.name.lower()
+        ]
         locked_packs = [p for p in packs_for_loc if not self._is_pack_unlocked(p)]
         
         if not packs_for_loc:
-            messagebox.showerror("No Packs", f"No {game_name} packs available for {self.location}")
-            self.open_pack_menu()
+            messagebox.showerror("No Packs", f"No packs available for {self.location}")
+            self.show_welcome()
             return
 
         create_header(
             self.content_frame,
-            f"{game_icon} {game_name} PACKS",
+            "AVAILABLE PACKS",
             f"Region: {self.location} - Choose a pack to open"
         )
-        
-        # Botão para voltar
-        back_btn = create_button(
-            self.content_frame,
-            "← BACK TO GAME SELECTION",
-            self.open_pack_menu,
-            Colors.SECONDARY,
-            padx=20,
-            pady=8
-        )
-        back_btn.pack(anchor=tk.W, padx=40, pady=(0, 10))
-        bind_hover_effect(back_btn, Colors.SECONDARY, Colors.SECONDARY_HOVER)
         
         # Aviso de packs bloqueados
         if locked_packs:
@@ -955,7 +769,7 @@ class PackOpenerGUI:
             pack_card.grid_propagate(False)
             
             # Borda superior
-            tk.Frame(pack_card, bg=game_color if unlocked else Colors.BORDER_INACTIVE, height=Sizes.BORDER_MEDIUM).pack(fill=tk.X)
+            tk.Frame(pack_card, bg=Colors.PRIMARY if unlocked else Colors.BORDER_INACTIVE, height=Sizes.BORDER_MEDIUM).pack(fill=tk.X)
             
             content_frame = tk.Frame(pack_card, bg=Colors.BG_CARD)
             content_frame.pack(fill=tk.BOTH, expand=True, padx=15, pady=15)
@@ -966,7 +780,7 @@ class PackOpenerGUI:
                 text="🎴",
                 font=get_font(Fonts.SIZE_HUGE),
                 bg=Colors.BG_CARD,
-                fg=game_color if unlocked else Colors.TEXT_DISABLED
+                fg=Colors.PRIMARY if unlocked else Colors.TEXT_DISABLED
             ).pack(pady=(5, 10))
             
             # Nome do pack
@@ -980,11 +794,10 @@ class PackOpenerGUI:
                 justify=tk.CENTER
             ).pack()
             
-            # Info - Ajusta para Yu-Gi-Oh (5 cartas por pack)
-            num_cards = len(pack.pokemons) if hasattr(pack, 'pokemons') else 5
+            # Info
             tk.Label(
                 content_frame,
-                text=f"{num_cards} cards",
+                text=f"{len(pack.pokemons)} cards",
                 font=get_font(Fonts.SIZE_TINY),
                 bg=Colors.BG_CARD,
                 fg=Colors.TEXT_SECONDARY,
@@ -1000,7 +813,7 @@ class PackOpenerGUI:
                 text=f"{pack.price} coins",
                 font=get_font(Fonts.SIZE_TINY, Fonts.BOLD),
                 bg=Colors.BG_CARD,
-                fg=game_color
+                fg=Colors.PRIMARY
             ).pack(side=tk.LEFT, padx=5)
             
             if inventory_count > 0:
@@ -1034,13 +847,13 @@ class PackOpenerGUI:
                     content_frame,
                     "OPEN" if has_packs else "SHOP",
                     make_open_handler(pack, has_packs),
-                    game_color if has_packs else Colors.SECONDARY,
+                    Colors.PRIMARY if has_packs else Colors.SECONDARY,
                     padx=20,
                     pady=10
                 )
                 btn.pack(fill=tk.X)
                 
-                normal_bg = game_color if has_packs else Colors.SECONDARY
+                normal_bg = Colors.PRIMARY if has_packs else Colors.SECONDARY
                 hover_bg = Colors.PRIMARY_HOVER if has_packs else Colors.SECONDARY_HOVER
                 bind_hover_effect(btn, normal_bg, hover_bg)
             
@@ -1108,11 +921,6 @@ class PackOpenerGUI:
             "Base Set 2": "https://storage.googleapis.com/images.pricecharting.com/2449d486c608ea96843c76889ad9ad33ceb5885026f633a728c089d0bd912925/1600.jpg",
             "Fossil": "https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2021/06/box-angle-front-10.jpg",
             "Jungle": "https://storage.googleapis.com/images.pricecharting.com/bc14ac59ce7e7e82d7f225fddb52305a3446cd0e5c6d53afb743da2fcc766d70/1600.jpg",
-            # YU-GI-OH PACKS
-            "Yu-Gi-Oh! Trading Card Game - Series 1": "https://ygoprodeck.com/pack/Vol.%201/ocg/",
-            "Booster1": "https://ygoprodeck.com/pack/Booster%201/ocg/",
-            "Vol.2": "https://ygoprodeck.com/pack/Vol.%202/ocg/",
-            "Booster 2": "https://ygoprodeck.com/pack/Booster%202/ocg/",
         }
 
         # Cards de pack modernos (layout horizontal)
@@ -1137,52 +945,22 @@ class PackOpenerGUI:
 
             if pack_image_url and Image is not None and ImageTk is not None:
                 try:
-                    # Para YGOProDeck, tenta carregar a página e extrair imagem
-                    if "ygoprodeck.com" in pack_image_url:
-                        # Tenta primeiro uma URL de imagem alternativa
-                        pack_slug = pack_name.lower().replace(" ", "_").replace("!", "")
-                        alt_urls = [
-                            f"https://ygoprodeck.com/pack/{pack_name.replace(' ', '%20')}/ocg/",
-                            f"https://images.ygoprodeck.com/images/packs/{pack_slug}.jpg"
-                        ]
-                        
-                        for alt_url in alt_urls:
-                            try:
-                                req = urllib.request.Request(
-                                    alt_url,
-                                    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-                                )
-                                with urllib.request.urlopen(req, timeout=5) as resp:
-                                    image_data = resp.read()
-                                
-                                img = Image.open(io.BytesIO(image_data))
-                                img.thumbnail((160, 230), Image.Resampling.LANCZOS)
-                                tk_img = ImageTk.PhotoImage(img)
-                                
-                                img_label = tk.Label(image_frame, image=tk_img, bg=Colors.BG_DARKER)
-                                img_label.image = tk_img
-                                img_label.pack(expand=True)
-                                image_loaded = True
-                                break
-                            except:
-                                continue
-                    else:
-                        req = urllib.request.Request(
-                            pack_image_url,
-                            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-                        )
+                    req = urllib.request.Request(
+                        pack_image_url,
+                        headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+                    )
 
-                        with urllib.request.urlopen(req, timeout=10) as resp:
-                            image_data = resp.read()
+                    with urllib.request.urlopen(req, timeout=10) as resp:
+                        image_data = resp.read()
 
-                        img = Image.open(io.BytesIO(image_data))
-                        img.thumbnail((160, 230), Image.Resampling.LANCZOS)
-                        tk_img = ImageTk.PhotoImage(img)
+                    img = Image.open(io.BytesIO(image_data))
+                    img.thumbnail((160, 230), Image.Resampling.LANCZOS)
+                    tk_img = ImageTk.PhotoImage(img)
 
-                        img_label = tk.Label(image_frame, image=tk_img, bg=Colors.BG_DARKER)
-                        img_label.image = tk_img
-                        img_label.pack(expand=True)
-                        image_loaded = True
+                    img_label = tk.Label(image_frame, image=tk_img, bg=Colors.BG_DARKER)
+                    img_label.image = tk_img  # Mantém referência
+                    img_label.pack(expand=True)
+                    image_loaded = True
 
                 except Exception as e:
                     print(f"❌ Failed to load image for {pack_name}: {e}")
@@ -1600,9 +1378,24 @@ class PackOpenerGUI:
             self.wallet.coins = 99999
             self.profile["level"] = 99
             self.update_stats_labels()
-            messagebox.showinfo("Debug", "Debug ON: 99999 coins, all packs unlocked")
+            messagebox.showinfo("Debug", 
+                "Debug Mode ON\n\n"
+                "✅ 99999 coins\n"
+                "✅ All packs unlocked\n"
+                "✅ All packs are FREE in shop"
+            )
         else:
-            messagebox.showinfo("Debug", "Debug OFF")
+            messagebox.showinfo("Debug", "Debug Mode OFF")
+        
+        # ADICIONA: Recarrega shop se estiver aberto
+        if hasattr(self, 'content_frame') and self.content_frame.winfo_children():
+            for widget in self.content_frame.winfo_children():
+                if isinstance(widget, tk.Canvas):
+                    # Está numa página com scroll - pode ser shop
+                    try:
+                        self.show_shop()
+                    except:
+                        pass
 
     def _save_settings(self, path: str) -> None:
         """Guarda configurações em ficheiro."""
@@ -1633,7 +1426,10 @@ class PackOpenerGUI:
         return stats
 
     def _build_scrollable_frame(self, parent, orient="vertical", bg=None):
-        """Constrói frame scrollável com suporte a mousewheel."""
+        """
+        Helper centralizado para criar frames scrolláveis.
+        ÚNICO MÉTODO - removidas duplicações.
+        """
         bg = bg or Colors.BG_DARK
         canvas = tk.Canvas(parent, bg=bg, highlightthickness=0)
         scrollable_frame = tk.Frame(canvas, bg=bg)
@@ -1653,6 +1449,7 @@ class PackOpenerGUI:
                     canvas.xview_scroll(delta, "units")
             except tk.TclError:
                 pass
+        
         canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_mousewheel))
         canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
@@ -1661,13 +1458,8 @@ class PackOpenerGUI:
 
     def open_pack_by_name(self, pack_name: str):
         """Abre pack específico por nome."""
-        # Procura em packs Pokémon
         pack = next((p for p in self.packs if p.name == pack_name), None)
-        
-        # Se não encontrar, procura em packs Yu-Gi-Oh
-        if not pack:
-            pack = next((p for p in self.packs_yugiho if p.name == pack_name), None)
-        
+
         if pack:
             self.open_pack(pack)
         else:
@@ -1944,22 +1736,13 @@ class PackOpenerGUI:
 
         self.update_stats_labels()
     
-    def refresh_theme(self):
-        """Atualiza widgets para refletir tema atual."""
-        # Refresh dinâmico de tema (design moderno não precisa)
-        pass
-
-    def apply_palette(self, palette_name: str):
-        """Aplica paleta de cores (deprecated - mantido por compatibilidade)."""
-        # Design moderno não suporta mudança de paleta
-        pass
-
     def set_graphics_mode(self, mode: str):
         """Define modo de gráficos."""
         self.graphics_mode = mode
         print(f"INFO: Graphics mode set to '{mode}'")
-
-# ==================== PONTO DE ENTRADA PRINCIPAL ==================== #
+        
+        
+        # ==================== PONTO DE ENTRADA PRINCIPAL ==================== #
 def main():
     """Ponto de entrada principal."""
     root = tk.Tk()

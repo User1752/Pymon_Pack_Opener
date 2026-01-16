@@ -4,68 +4,17 @@ Componentes de UI para exibição e gestão de perfil.
 """
 import tkinter as tk
 from ui.theme import (
-    Colors, Fonts, Spacing, Sizes,
+    Colors, Fonts, Spacing,
     get_font, create_card_with_border, create_progress_bar,
-    create_info_card, create_achievement_card, create_stat_row, create_button
+    create_stat_row, create_button
 )
 from core.profile import get_achievement_display_name
-
-
-def create_profile_header(parent, profile: dict) -> tk.Frame:
-    """Cria cabeçalho de perfil com avatar e nome."""
-    header = tk.Frame(parent, bg=Colors.BG_DARKER, height=80)
-    header.pack(fill=tk.X)
-    header.pack_propagate(False)
-    
-    tk.Label(
-        header,
-        text="PLAYER PROFILE",
-        font=get_font(Fonts.SIZE_TITLE, Fonts.BOLD),
-        bg=Colors.BG_DARKER,
-        fg=Colors.PRIMARY
-    ).pack(pady=20)
-    
-    return header
-
-
-def create_level_card(parent, profile: dict) -> tk.Frame:
-    """Cria card de exibição de nível e XP."""
-    card, content = create_card_with_border(parent, Colors.SUCCESS, fill=tk.X, pady=(0, 15))
-    
-    level = profile.get("level", 1)
-    xp_current = profile.get("xp_current", 0)
-    xp_max = profile.get("xp_max", 100)
-    
-    tk.Label(
-        content,
-        text=f"LEVEL {level}",
-        font=get_font(Fonts.SIZE_LARGE, Fonts.BOLD),
-        bg=Colors.BG_CARD,
-        fg=Colors.SUCCESS
-    ).pack(anchor=tk.W)
-    
-    tk.Label(
-        content,
-        text=f"XP: {xp_current} / {xp_max}",
-        font=get_font(Fonts.SIZE_SMALL),
-        bg=Colors.BG_CARD,
-        fg=Colors.TEXT_SECONDARY
-    ).pack(anchor=tk.W, pady=(5, 10))
-    
-    # Barra de progresso
-    create_progress_bar(content, xp_current, xp_max, Colors.SUCCESS)
-    
-    return card
-
-
-def create_stats_card(parent, stats: list) -> tk.Frame:
-    """Cria card de estatísticas."""
-    return create_info_card(parent, "STATISTICS", stats, Colors.WARNING)
 
 
 def show_profile_dialog(root, profile, pack_completion_stats_func):
     """
     Mostra diálogo completo de perfil do jogador.
+    ÚNICO MÉTODO EXPORTADO - helpers internos foram consolidados.
     
     Args:
         root: Janela principal (Tk)

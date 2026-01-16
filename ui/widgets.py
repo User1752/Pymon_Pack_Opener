@@ -7,13 +7,15 @@ import random
 import time
 
 # Usa ui.theme em vez de core.config
-from ui.theme import Colors, Fonts, Spacing, get_font, get_rarity_color
+from ui.theme import Colors, Fonts, Spacing, Sizes, get_font, get_rarity_color
 
+# Importa PIL para redimensionamento
 try:
     from PIL import Image, ImageTk
+    PIL_AVAILABLE = True
 except ImportError:
-    Image = None
-    ImageTk = None
+    PIL_AVAILABLE = False
+    print("⚠️  PIL not available - images will not be resized")
 
 
 class ToolTip:
@@ -82,86 +84,93 @@ class ToolTip:
 
 
 class CardWidget(tk.Frame):
-    """Exibe uma única carta."""
+    """Widget para exibir carta individual."""
     
-    def __init__(self, parent, pokemon, reward: int, 
-                 graphics_mode: str = "simple", 
-                 image_loader=None,
-                 normalize_rarity_func=None):
-        super().__init__(parent, bg=Colors.BG_CARD, relief=tk.RAISED, bd=2)
-        self.pokemon = pokemon
+    def __init__(self, parent, card, reward=0, graphics_mode="real", image_loader=None, normalize_rarity_func=None):
+        super().__init__(parent, bg=Colors.BG_CARD, width=220, height=320)
+        
+        self.pack_propagate(False)
+        self.card = card
         self.reward = reward
         self.graphics_mode = graphics_mode
         self.image_loader = image_loader
+        self.normalize_rarity = normalize_rarity_func or (lambda r: r)
         
-        # Obtém cor da raridade - USA HELPER
-        if normalize_rarity_func:
-            norm_rarity = normalize_rarity_func(pokemon.rarity)
+        self.setup_ui()
+    
+    def setup_ui(self):
+        """Configura interface da carta."""
+        # Borda superior colorida por raridade
+        rarity_color = get_rarity_color(self.card.rarity)
+        tk.Frame(self, bg=rarity_color, height=Sizes.BORDER_MEDIUM).pack(fill=tk.X)
+        
+        content = tk.Frame(self, bg=Colors.BG_CARD)
+        content.pack(fill=tk.BOTH, expand=True, padx=15, pady=15)
+        
+        # Nome da carta
+        tk.Label(
+            content,
+            text=self.card.name.upper(),
+            font=get_font(Fonts.SIZE_NORMAL, Fonts.BOLD),
+            bg=Colors.BG_CARD,
+            fg=Colors.TEXT_PRIMARY,
+            wraplength=180
+        ).pack(pady=(0, 10))
+        
+        # ==================== IMAGEM DA CARTA (SEM RESIZE ADICIONAL) ==================== #
+        if self.graphics_mode == "real" and self.image_loader:
+            try:
+                # Carrega imagem JÁ REDIMENSIONADA do CardImageSystem
+                card_image = self.image_loader(self.card.name)
+                
+                if card_image:
+                    # USA DIRETAMENTE - NÃO redimensiona novamente
+                    img_label = tk.Label(content, image=card_image, bg=Colors.BG_CARD)
+                    img_label.image = card_image  # Mantém referência
+                    img_label.pack(pady=10)
+                else:
+                    self._display_text_mode(content)
+                    
+            except Exception as e:
+                print(f"❌ Error loading image for {self.card.name}: {e}")
+                import traceback
+                traceback.print_exc()
+                self._display_text_mode(content)
         else:
-            norm_rarity = pokemon.rarity.lower() if hasattr(pokemon, 'rarity') else "common"
+            self._display_text_mode(content)
         
-        # USA HELPER do tema
-        rarity_color = get_rarity_color(norm_rarity)
+        # Raridade
+        tk.Label(
+            content,
+            text=self.normalize_rarity(self.card.rarity).upper(),
+            font=get_font(Fonts.SIZE_TINY, Fonts.BOLD),
+            bg=Colors.BG_CARD,
+            fg=rarity_color
+        ).pack(pady=(10, 5))
         
-        # Tamanho da carta: 220x300
-        self.config(bg=rarity_color, width=220, height=300)
-        self.pack_propagate(False)
-
-        # Frame interno
-        inner = tk.Frame(self, bg=Colors.BG_CARD)
-        inner.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-
-        # Tenta carregar imagem
-        img = image_loader(pokemon) if image_loader and graphics_mode == "real" else None
-
-        if img:
-            # Apenas imagem
-            lbl = tk.Label(inner, image=img, bg=Colors.BG_CARD)
-            lbl.pack(expand=True)
-            lbl._img_ref = img
-        else:
-            # Apenas texto
-            text_frame = tk.Frame(inner, bg=Colors.BG_CARD)
-            text_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-            if hasattr(pokemon, 'number') and pokemon.number:
-                tk.Label(
-                    text_frame, text=f"#{pokemon.number}",
-                    font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
-                    bg=Colors.BG_CARD, fg=rarity_color
-                ).pack()
-            
-            name = str(pokemon.name) if hasattr(pokemon, 'name') else "Unknown"
+        # Recompensa
+        if self.reward > 0:
             tk.Label(
-                text_frame, text=name,
+                content,
+                text=f"+{self.reward} coins",
                 font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
-                bg=Colors.BG_CARD, fg=Colors.TEXT_PRIMARY,
-                wraplength=210
-            ).pack(pady=3)
-            
-            if hasattr(pokemon, 'type'):
-                tk.Label(
-                    text_frame, text=f"Type: {pokemon.type}",
-                    font=get_font(Fonts.SIZE_TINY),
-                    bg=Colors.BG_CARD, fg=Colors.TEXT_PRIMARY
-                ).pack()
-            
-            tk.Label(
-                text_frame, text=norm_rarity.upper(),
-                font=get_font(Fonts.SIZE_TINY, Fonts.BOLD),
-                bg=Colors.BG_CARD, fg=rarity_color
-            ).pack(pady=3)
-            
-            tk.Label(
-                text_frame, text=f"+{reward} coins",
-                font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
-                bg=Colors.BG_CARD, fg=Colors.SUCCESS
-            ).pack(pady=3)
-
-        # Tooltip
-        def tooltip_text():
-            return f"{pokemon.name}\nRarity: {norm_rarity.title()}\nReward: +{reward} coins"
-        ToolTip(self, tooltip_text)
+                bg=Colors.BG_CARD,
+                fg=Colors.SUCCESS
+            ).pack()
+    
+    def _display_text_mode(self, parent):
+        """Exibe modo texto quando imagem não está disponível."""
+        text_frame = tk.Frame(parent, bg=Colors.BG_DARKER, width=180, height=200)
+        text_frame.pack(pady=10)
+        text_frame.pack_propagate(False)
+        
+        tk.Label(
+            text_frame,
+            text="🎴",
+            font=get_font(Fonts.SIZE_HUGE),
+            bg=Colors.BG_DARKER,
+            fg=get_rarity_color(self.card.rarity)
+        ).pack(expand=True)
 
 
 class SlotMachineWidget(tk.Frame):

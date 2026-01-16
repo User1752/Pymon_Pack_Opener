@@ -44,7 +44,8 @@ class ShopSystem:
         # ADICIONA: Callback para salvar jogo
         self.save_game_callback = None
         
-        self.coins_label = None
+        # ADICIONA: Callback para verificar modo debug
+        self.is_debug_mode = None  # Será setado externamente
     
     def show(self, content_frame, show_welcome_callback, clear_content_callback):
         """Mostra interface da loja."""
@@ -77,11 +78,6 @@ class ShopSystem:
             padx=35,
             pady=14
         ).pack(pady=(Spacing.PAD_SMALL, Spacing.PAD_MEDIUM))
-    
-    def _update_coins_display(self):
-        """Atualiza exibição de moedas."""
-        if self.coins_label and self.coins_label.winfo_exists():
-            self.coins_label.config(text=f"{self.wallet.coins} coins")
     
     def _show_booster_packs_tab(self, parent):
         """Mostra tab de booster packs."""
@@ -204,12 +200,20 @@ class ShopSystem:
             stats_row = tk.Frame(content_frame, bg=Colors.BG_CARD)
             stats_row.pack(pady=(0, 10))
             
+            # ATUALIZA: Mostra preço correto baseado em debug mode
+            debug_active = self.is_debug_mode() if callable(self.is_debug_mode) else False
+            display_price = 0 if debug_active else pack.price
+            
+            # ATUALIZA: Mostra "FREE" se debug ativo
+            price_text = "FREE" if debug_active else f"{display_price} coins"
+            price_color = Colors.WARNING if debug_active else (Colors.SUCCESS if unlocked else Colors.TEXT_DISABLED)
+            
             tk.Label(
                 stats_row,
-                text=f"{pack.price} coins",
+                text=price_text,
                 font=get_font(Fonts.SIZE_TINY, Fonts.BOLD),
                 bg=Colors.BG_CARD,
-                fg=Colors.SUCCESS if unlocked else Colors.TEXT_DISABLED
+                fg=price_color
             ).pack(side=tk.LEFT, padx=8)
             
             # Mostra quantidade no inventário
@@ -236,35 +240,38 @@ class ShopSystem:
                 # Função de compra com closure adequado
                 def make_buy_handler(name=pack.name, cost=pack.price):
                     def buy():
-                        if self.wallet.coins >= cost:
-                            self.wallet.coins -= cost
+                        # CORRIGIDO: Usa preço 0 em debug mode
+                        debug_mode = self.is_debug_mode() if callable(self.is_debug_mode) else False
+                        actual_cost = 0 if debug_mode else cost
+                        
+                        if self.wallet.coins >= actual_cost:
+                            self.wallet.coins -= actual_cost
                             current = self.pack_inventory.get(name, 0)
                             self.pack_inventory[name] = current + 1
                             
-                            # DEBUG: Confirma compra
                             print(f"\n🛒 SHOP PURCHASE:")
-                            print(f"  Pack name: '{name}'")
+                            print(f"  Pack: '{name}'")
+                            print(f"  Cost: {actual_cost} coins (Debug: {debug_mode})")
                             print(f"  New count: {self.pack_inventory[name]}")
-                            print(f"  Full inventory: {self.pack_inventory}\n")
+                            # ✅ ADICIONA: Debug do inventário COMPLETO
+                            print(f"  Full inventory after purchase: {dict(self.pack_inventory)}\n")
                             
                             self.update_stats()
                             
-                            # SALVA CONFIGURAÇÕES (settings.json)
                             if self.save_settings:
                                 self.save_settings()
                             
-                            # SALVA O JOGO COMPLETO (silenciosamente) - CORRIGIDO
                             if hasattr(self, 'save_game_callback') and self.save_game_callback:
                                 print("💾 Auto-saving game after purchase...")
                                 self.save_game_callback(1, silent=True)
                             else:
                                 print("⚠️  WARNING: save_game_callback not set!")
                             
-                            self._update_coins_display()
+                            # ✅ CORRIGIDO: Recarrega a loja COMPLETAMENTE
                             self._show_booster_packs_tab(parent)
                         else:
                             messagebox.showerror("Insufficient Coins", 
-                                f"You need {cost} coins but only have {self.wallet.coins}")
+                                f"You need {actual_cost} coins but only have {self.wallet.coins}")
                     return buy
                 
                 create_button(
@@ -283,42 +290,6 @@ class ShopSystem:
                 row += 1
         
         canvas.pack(fill=tk.BOTH, expand=True)
-
-    def _build_scrollable_frame(self, parent, orient="vertical", bg=None, bind_scroll=True):
-        """Constrói frame scrollável com canvas."""
-        bg = bg or self.colors["accent"]
-        canvas = tk.Canvas(parent, bg=bg, highlightthickness=0)
-        scrollable_frame = tk.Frame(canvas, bg=bg)
-        scrollbar = tk.Scrollbar(
-            parent,
-            orient=tk.VERTICAL if orient == "vertical" else tk.HORIZONTAL,
-            command=canvas.yview if orient == "vertical" else canvas.xview
-        )
-
-        scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-
-        if bind_scroll:
-            def _on_mousewheel(event):
-                if event.widget == canvas or canvas.winfo_containing(event.x_root, event.y_root) == canvas:
-                    delta = int(-1 * (event.delta / 120))
-                    if orient == "vertical":
-                        canvas.yview_scroll(delta, "units")
-                    else:
-                        canvas.xview_scroll(delta, "units")
-
-            canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_mousewheel))
-            canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
-
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-        if orient == "vertical":
-            canvas.configure(yscrollcommand=scrollbar.set)
-        else:
-            canvas.configure(xscrollcommand=scrollbar.set)
-
-        return canvas, scrollable_frame, scrollbar
 
     def _buy_pack(self, pack):
         """Compra pack e adiciona ao inventário."""

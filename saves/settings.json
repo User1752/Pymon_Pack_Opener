@@ -1,11 +1,11 @@
 {
   "palette": "Dark",
   "graphics_mode": "real",
-  "show_notifications": false,
+  "show_notifications": true,
   "profile": {
     "icon": "Trainer",
-    "level": 7,
-    "xp": 4606,
+    "level": 10,
+    "xp": 11977,
     "title": "Rookie",
     "achievements": [
       "first_steps",
@@ -15,14 +15,17 @@
       "holo_master",
       "pack_addict",
       "coin_collector",
-      "novice_trainer"
+      "novice_trainer",
+      "rich_trainer",
+      "dedicated_collector",
+      "experienced_trainer"
     ],
     "name": "Player",
-    "xp_current": 706,
-    "xp_max": 1900,
+    "xp_current": 477,
+    "xp_max": 4000,
     "unlocked_avatars": [
       "Trainer"
     ],
-    "total_coins_earned": 4683
+    "total_coins_earned": 12171
   }
 }
