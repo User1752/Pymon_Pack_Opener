@@ -18,6 +18,7 @@ except ImportError:
 
 # Adiciona diretório base ao path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 sys.path.insert(0, BASE_DIR)
 
 # Importações da estrutura modular
@@ -35,11 +36,9 @@ from ui.shop import ShopSystem
 from ui.collection_viewer import CollectionViewer
 from widgets.utils.image_loader import ImageLoader
 from widgets.utils.settings_manager import SettingsManager
-from widgets.utils.card_images import CardImageSystem
 
 # Diretórios do sistema
 SAVE_DIR = os.path.join(BASE_DIR, "saves")
-CARD_IMAGES_DIR = os.path.join(BASE_DIR, "assets", "card_images")
 SETTINGS_FILE = os.path.join(SAVE_DIR, "settings.json")
 PACKS_FILE = os.path.join(BASE_DIR, "data", "packs.json")
 PACKS_INFO_FILE = os.path.join(BASE_DIR, "data", "packs_info.json")
@@ -56,13 +55,13 @@ class PackOpenerGUI:
         self.root.config(bg=Colors.BG_DARK)
         
         # Gestores de recursos
-        self.image_loader = ImageLoader(CARD_IMAGES_DIR)
+        # CORRIGIDO: ImageLoader usa diretório base de assets
+        assets_dir = os.path.join(BASE_DIR, "assets")
+        self.image_loader = ImageLoader(assets_dir)
         self.settings_manager = SettingsManager(SAVE_DIR, SETTINGS_FILE)
-        self.card_image_system = CardImageSystem(CARD_IMAGES_DIR)
         
         # Cria diretórios necessários
         os.makedirs(SAVE_DIR, exist_ok=True)
-        os.makedirs(CARD_IMAGES_DIR, exist_ok=True)
         
         # Carrega dados do jogo
         self.packs = load_packs_from_json(PACKS_FILE)
@@ -71,7 +70,6 @@ class PackOpenerGUI:
         
         # Carrega imagens
         self.image_loader.load_set_image_maps(self.packs)
-        self.card_image_system.load_set_image_maps(self.packs)
         
         # Estado do jogo
         self.wallet = Wallet(coins=0)
@@ -141,7 +139,7 @@ class PackOpenerGUI:
             lambda: self.collection_by_set,
             lambda: self.pack_languages,
             lambda: self.collection_set_filters,
-            self.card_image_system
+            self.image_loader  # USA ImageLoader em vez de CardImageSystem
         )
         
         self.setup_ui()
@@ -353,7 +351,6 @@ class PackOpenerGUI:
         # Define contexto para carregamento de imagens
         pack_slug = self.image_loader._pack_to_slug(pack.name)
         self.image_loader.set_current_pack(pack_slug)
-        self.card_image_system.set_current_pack(pack_slug)
         
         print(f"\nOPENING PACK: {pack_name}")
         print(f"Wallet BEFORE: {self.wallet.coins} coins")
@@ -466,7 +463,7 @@ class PackOpenerGUI:
         widget = CardWidget(
             parent, card, reward,
             graphics_mode=self.graphics_mode,
-            image_loader=lambda p: self.card_image_system.get_card_image(p),
+            image_loader=lambda p, target_size=None: self.image_loader.get_card_image(p, target_size=target_size),  # USA ImageLoader
             normalize_rarity_func=normalize_rarity
         )
         widget.grid(row=row, column=col, padx=10, pady=10, sticky="w")

@@ -87,7 +87,7 @@ class CardWidget(tk.Frame):
     """Widget para exibir carta individual."""
     
     def __init__(self, parent, card, reward=0, graphics_mode="real", image_loader=None, normalize_rarity_func=None):
-        super().__init__(parent, bg=Colors.BG_CARD, width=220, height=320)
+        super().__init__(parent, bg=Colors.BG_CARD, width=220, height=360)
         
         self.pack_propagate(False)
         self.card = card
@@ -111,23 +111,23 @@ class CardWidget(tk.Frame):
         tk.Label(
             content,
             text=self.card.name.upper(),
-            font=get_font(Fonts.SIZE_NORMAL, Fonts.BOLD),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.BG_CARD,
             fg=Colors.TEXT_PRIMARY,
             wraplength=180
-        ).pack(pady=(0, 10))
+        ).pack(pady=(0, 6))
         
         # ==================== IMAGEM DA CARTA (SEM RESIZE ADICIONAL) ==================== #
         if self.graphics_mode == "real" and self.image_loader:
             try:
                 # Carrega imagem JÁ REDIMENSIONADA do CardImageSystem
-                card_image = self.image_loader(self.card.name)
+                card_image = self.image_loader(self.card, target_size=(180, 215))
                 
                 if card_image:
                     # USA DIRETAMENTE - NÃO redimensiona novamente
                     img_label = tk.Label(content, image=card_image, bg=Colors.BG_CARD)
                     img_label.image = card_image  # Mantém referência
-                    img_label.pack(pady=10)
+                    img_label.pack(pady=(6, 4))
                 else:
                     self._display_text_mode(content)
                     
@@ -143,17 +143,17 @@ class CardWidget(tk.Frame):
         tk.Label(
             content,
             text=self.normalize_rarity(self.card.rarity).upper(),
-            font=get_font(Fonts.SIZE_TINY, Fonts.BOLD),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.BG_CARD,
             fg=rarity_color
-        ).pack(pady=(10, 5))
+        ).pack(pady=(4, 2))
         
         # Recompensa
         if self.reward > 0:
             tk.Label(
                 content,
                 text=f"+{self.reward} coins",
-                font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
+                font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
                 bg=Colors.BG_CARD,
                 fg=Colors.SUCCESS
             ).pack()
@@ -161,7 +161,7 @@ class CardWidget(tk.Frame):
     def _display_text_mode(self, parent):
         """Exibe modo texto quando imagem não está disponível."""
         text_frame = tk.Frame(parent, bg=Colors.BG_DARKER, width=180, height=200)
-        text_frame.pack(pady=10)
+        text_frame.pack(pady=6)
         text_frame.pack_propagate(False)
         
         tk.Label(
@@ -204,12 +204,12 @@ class SlotMachineWidget(tk.Frame):
             self, text="🎰 SLOT MACHINE 🎰",
             font=get_font(Fonts.SIZE_SUBHEADING, Fonts.BOLD),
             bg=Colors.BG_CARD, fg=Colors.WARNING
-        ).pack(pady=10)
+        ).pack(pady=6)
         
         # Saldo
         self.balance_lbl = tk.Label(
             self, text=f"Balance: {self.wallet.coins} coins",
-            font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.BG_CARD, fg=Colors.SUCCESS
         )
         self.balance_lbl.pack()
@@ -218,7 +218,7 @@ class SlotMachineWidget(tk.Frame):
         tk.Label(
             self,
             text="7-7-7=1000 | 🔴🔴🔴=500 | ⭐⭐⭐=250 | 🌙🌙🌙=200 | 🔔🔔🔔=100 | 🔁🔁🔁=REPLAY",
-            font=get_font(Fonts.SIZE_TINY),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.BG_CARD,
             fg=Colors.TEXT_SECONDARY
         ).pack(pady=5)
@@ -242,16 +242,16 @@ class SlotMachineWidget(tk.Frame):
         # Info
         self.info_lbl = tk.Label(
             self, text=f"Bet: {self.bet} coins | Click SPIN to play!",
-            font=get_font(Fonts.SIZE_SMALL),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.BG_CARD,
             fg=Colors.TEXT_PRIMARY
         )
-        self.info_lbl.pack(pady=10)
+        self.info_lbl.pack(pady=6)
         
         # Resultado
         self.result_lbl = tk.Label(
             self, text="",
-            font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.BG_CARD,
             fg=Colors.SUCCESS
         )
@@ -263,7 +263,7 @@ class SlotMachineWidget(tk.Frame):
         
         self.spin_btn = tk.Button(
             btn_frame, text="🎯 SPIN",
-            font=get_font(Fonts.SIZE_NORMAL, Fonts.BOLD),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.WARNING, fg=Colors.TEXT_DARK,
             padx=30, pady=15, command=self.spin,
             relief=tk.RAISED, bd=3
@@ -272,7 +272,7 @@ class SlotMachineWidget(tk.Frame):
         
         tk.Button(
             btn_frame, text="❌ Close",
-            font=get_font(Fonts.SIZE_SMALL, Fonts.BOLD),
+            font=get_font(Fonts.SIZE_MINI, Fonts.BOLD),
             bg=Colors.DANGER, fg=Colors.TEXT_BUTTON,
             padx=20, pady=10, command=self.on_close
         ).pack(side=tk.LEFT, padx=10)

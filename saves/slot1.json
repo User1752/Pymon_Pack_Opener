@@ -1,62 +1,114 @@
 {
-  "coins": 100479,
+  "coins": 99999,
   "collection": {
+    "uncommon": {
+      "Charmeleon": 1,
+      "Raticate": 2,
+      "Defender": 5,
+      "Farfetch'd": 1,
+      "Haunter": 1,
+      "Pokemon Center": 2,
+      "Magikarp": 1,
+      "Professor Oak": 2,
+      "Maintenance": 2,
+      "Magmar": 2,
+      "Growlithe": 1,
+      "Poliwhirl": 1,
+      "Dewgong": 1,
+      "Pokemon Flute": 1,
+      "Dratini": 1,
+      "Super Potion": 1,
+      "Jynx": 2,
+      "PlusPower": 1,
+      "Kadabra": 1,
+      "Nidorino": 1,
+      "Energy Retrieval": 1
+    },
     "common": {
-      "Cubone": 3,
-      "Mankey": 4,
-      "Venonat": 3,
-      "Goldeen": 5,
-      "Pikachu": 2,
-      "Exeggcute": 2,
-      "Meowth": 1,
-      "Paras": 1,
-      "Nidoran\u2640": 2,
-      "Spearow": 3,
-      "Eevee": 2,
-      "Oddish": 4,
-      "Rhyhorn": 2,
-      "Pok\u00e9 Ball": 1,
-      "Jigglypuff": 1
+      "Diglett": 2,
+      "Onix": 2,
+      "Switch": 1,
+      "Charmander": 1,
+      "Staryu": 1,
+      "Pikachu": 1,
+      "Bill": 1,
+      "Pidgey": 1,
+      "Bulbasaur": 1,
+      "Voltorb": 1,
+      "Vulpix": 1,
+      "Gust of Wind": 1
     },
     "rare holo": {
-      "Victreebel": 1,
-      "Jolteon": 1,
-      "Nidoqueen": 1,
-      "Vaporeon": 1,
-      "Mr. Mime": 1,
-      "Wigglytuff": 1
+      "Chansey": 1,
+      "Blastoise": 1
+    },
+    "energy": {
+      "Lightning Energy": 3,
+      "Fire Energy": 1,
+      "Grass Energy": 1
+    },
+    "rare": {
+      "Devolution Spray": 1,
+      "Imposter Professor Oak": 1,
+      "Pidgeotto": 1
     }
   },
   "collection_by_set": {
-    "Jungle": {
+    "Base Pack Set": {
+      "uncommon": {
+        "Charmeleon": 1,
+        "Raticate": 2,
+        "Defender": 5,
+        "Farfetch'd": 1,
+        "Haunter": 1,
+        "Pokemon Center": 2,
+        "Magikarp": 1,
+        "Professor Oak": 2,
+        "Maintenance": 2,
+        "Magmar": 2,
+        "Growlithe": 1,
+        "Poliwhirl": 1,
+        "Dewgong": 1,
+        "Pokemon Flute": 1,
+        "Dratini": 1,
+        "Super Potion": 1,
+        "Jynx": 2,
+        "PlusPower": 1,
+        "Kadabra": 1,
+        "Nidorino": 1,
+        "Energy Retrieval": 1
+      },
       "common": {
-        "Cubone": 3,
-        "Mankey": 4,
-        "Venonat": 3,
-        "Goldeen": 5,
-        "Pikachu": 2,
-        "Exeggcute": 2,
-        "Meowth": 1,
-        "Paras": 1,
-        "Nidoran\u2640": 2,
-        "Spearow": 3,
-        "Eevee": 2,
-        "Oddish": 4,
-        "Rhyhorn": 2,
-        "Pok\u00e9 Ball": 1,
-        "Jigglypuff": 1
+        "Diglett": 2,
+        "Onix": 2,
+        "Switch": 1,
+        "Charmander": 1,
+        "Staryu": 1,
+        "Pikachu": 1,
+        "Bill": 1,
+        "Pidgey": 1,
+        "Bulbasaur": 1,
+        "Voltorb": 1,
+        "Vulpix": 1,
+        "Gust of Wind": 1
       },
       "rare holo": {
-        "Victreebel": 1,
-        "Jolteon": 1,
-        "Nidoqueen": 1,
-        "Vaporeon": 1,
-        "Mr. Mime": 1,
-        "Wigglytuff": 1
+        "Chansey": 1,
+        "Blastoise": 1
+      },
+      "energy": {
+        "Lightning Energy": 3,
+        "Fire Energy": 1,
+        "Grass Energy": 1
+      },
+      "rare": {
+        "Devolution Spray": 1,
+        "Imposter Professor Oak": 1,
+        "Pidgeotto": 1
       }
     }
   },
-  "packs_opened": 6,
+  "packs_opened": 5,
   "location": "ENG",
   "graphics_mode": "real",
   "palette": "Dark",
@@ -65,14 +117,12 @@
     "Base Set 2": 2,
     "Expansion Pack": 3,
     "Pok\u00e9mon Jungle": 2,
-    "Mystery of the Fossils": 2,
-    "Jungle": 4,
-    "Fossil": 11
+    "Mystery of the Fossils": 2
   },
   "profile": {
     "icon": "Trainer",
-    "level": 10,
-    "xp": 11977,
+    "level": 99,
+    "xp": 12639,
     "title": "Rookie",
     "achievements": [
       "first_steps",
@@ -88,12 +138,12 @@
       "experienced_trainer"
     ],
     "name": "Player",
-    "xp_current": 477,
+    "xp_current": 1139,
     "xp_max": 4000,
     "unlocked_avatars": [
       "Trainer"
     ],
-    "total_coins_earned": 12171
+    "total_coins_earned": 12847
   },
   "pack_languages": {
     "Base Pack Set": "ENG",
