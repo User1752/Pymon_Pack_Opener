@@ -1,87 +1,87 @@
-# 🎴 Pymon TCG Pack Opener
+# Pymon TCG Pack Opener
 
-**Simulador profissional de abertura de packs de Pokémon TCG** com sistema completo de coleção, XP, achievements e minigames.
-
----
-
-## ✨ Funcionalidades
-
-### 🎴 **Sistema de Packs**
-
-* ✅ **Abertura realista** com animações e efeitos visuais
-* ✅ **Multi-região**: Sets ingleses (ENG) e japoneses (JP)
-* ✅ **Sets disponíveis**: Base Pack Set, Base Set 2, Jungle, Fossil, Expansion Pack (JP), Pokémon Jungle (JP), Mystery of the Fossils (JP)
-* ✅ **Sistema de inventário**: guarda packs para abrir depois
-* ✅ **Imagens reais** das cartas (modo real/simples)
-
-### 📚 **Coleção & Progresso**
-
-* ✅ **Visualizador de coleção** com filtros por raridade e set
-* ✅ **Estatísticas de completude** por pack
-* ✅ **Sistema de XP/Level** com progressão visual
-* ✅ **25+ Achievements** desbloqueáveis
-* ✅ **Perfil do jogador** com estatísticas detalhadas
-
-### 🛒 **Economia & Loja**
-
-* ✅ **Sistema de moedas**: ganha coins abrindo packs
-* ✅ **Loja de packs**: compra packs com coins
-* ✅ **Packs bloqueados por nível**: desbloqueia novos sets com progresso
-* ✅ **Auto-save** após compras (quando configurado)
-
-### 🎰 **Minigames**
-
-* ✅ **Slot Machine**: apostas e multiplicadores
-* ✅ **Blackjack**: sistema completo de cartas
-
-### 💾 **Sistema de Save**
-
-* ✅ **3 Slots de Save** independentes
-* ✅ **Persistência completa**: coins, coleção, inventário, XP, achievements e definições
+A polished Pokémon TCG pack-opening simulator with a complete system for collection tracking, XP/levels, achievements, and minigames.
 
 ---
 
-## 📁 Estrutura do Projeto
+## Features
+
+### Pack System
+
+* Realistic pack opening with animations and visual effects
+* Multi-region support: English (ENG) and Japanese (JP) sets
+* Available sets: Base Pack Set, Base Set 2, Jungle, Fossil, Expansion Pack (JP), Pokémon Jungle (JP), Mystery of the Fossils (JP)
+* Inventory system: keep packs to open later
+* Real card images (real/simple display modes)
+
+### Collection & Progress
+
+* Collection viewer with filters by rarity and set
+* Pack completion statistics
+* XP/Level progression with visual feedback
+* 25+ unlockable achievements
+* Player profile with detailed stats
+
+### Economy & Shop
+
+* Coin system: earn coins by opening packs
+* Pack shop: buy packs with coins
+* Packs locked by level: unlock new sets as you progress
+* Auto-save after purchases (when enabled)
+
+### Minigames
+
+* Slot Machine: bets and multipliers
+* Blackjack: full card system
+
+### Save System
+
+* 3 independent save slots
+* Full persistence: coins, collection, inventory, XP, achievements, and settings
+
+---
+
+## Project Structure
 
 ```
 Pymon_Pack_Opener/
 │
-├── main.py                         # ⚙️ Ponto de entrada principal
+├── main.py                         # Main entry point
 │
-├── core/                           # 🎮 Lógica do jogo
+├── core/                           # Game logic
 │   ├── __init__.py
-│   ├── game.py                     # Classes Pack, Wallet, Pokemon, Card
-│   ├── config.py                   # Configurações, cores, níveis de unlock
-│   └── profile.py                  # Sistema XP/Level/Achievements
+│   ├── game.py                     # Pack, Wallet, Pokemon, Card classes
+│   ├── config.py                   # Settings, colors, unlock levels
+│   └── profile.py                  # XP/Level/Achievements system
 │
-├── ui/                             # 🎨 Interface gráfica
+├── ui/                             # User interface
 │   ├── __init__.py
-│   ├── theme.py                    # Sistema de temas moderno (helpers centralizados)
-│   ├── widgets.py                  # Widgets de UI (CardWidget, SlotMachineWidget, ToolTip)
-│   ├── shop.py                     # Sistema de loja de packs
-│   ├── collection_viewer.py        # Visualizador de coleção com filtros
-│   ├── profile_ui.py               # Interface de perfil do jogador
+│   ├── theme.py                    # Theme system (centralized helpers)
+│   ├── widgets.py                  # UI widgets (CardWidget, SlotMachineWidget, ToolTip)
+│   ├── shop.py                     # Pack shop
+│   ├── collection_viewer.py        # Collection viewer with filters
+│   ├── profile_ui.py               # Player profile UI
 │   └── minigames/
 │       ├── __init__.py
-│       └── blackjack_gui.py        # Minigame Blackjack completo
+│       └── blackjack_gui.py        # Blackjack minigame
 │
-├── widgets/                        # 🔧 Componentes auxiliares
+├── widgets/                        # Auxiliary components
 │   ├── __init__.py
-│   ├── card_widget.py              # CardWidget alternativo (compatibilidade)
-│   ├── slot_machine.py             # Slot Machine (versão modular, se usada)
-│   ├── tooltip.py                  # Tooltip (versão modular, se usada)
+│   ├── card_widget.py              # Alternative CardWidget (compatibility)
+│   ├── slot_machine.py             # Slot Machine (modular version, if used)
+│   ├── tooltip.py                  # Tooltip (modular version, if used)
 │   └── utils/
 │       ├── __init__.py
-│       ├── image_loader.py         # Loader de imagens por JSON (ATIVO)
-│       ├── settings_manager.py     # Sistema de save/load (3 slots)
-│       └── card_name_utils.py      # Utilitários de normalização de nomes (se aplicável)
+│       ├── image_loader.py         # JSON-based image loader (ACTIVE)
+│       ├── settings_manager.py     # Save/load system (3 slots)
+│       └── card_name_utils.py      # Card name normalization utilities (if applicable)
 │
-├── data/                           # 📊 Dados do jogo
-│   ├── packs.json                  # Definições de todos os packs
-│   └── packs_info.json             # Informações detalhadas (release, theme decks)
+├── data/                           # Game data
+│   ├── packs.json                  # Pack definitions
+│   └── packs_info.json             # Detailed pack info (release, theme decks)
 │
-├── assets/                         # 🖼️ Recursos gráficos
-│   ├── images/                     # Pastas com imagens físicas das cartas
+├── assets/                         # Assets
+│   ├── images/                     # Physical card image folders
 │   │   ├── base_set/
 │   │   ├── base_set_2/
 │   │   ├── expansion_pack_image/
@@ -98,8 +98,8 @@ Pymon_Pack_Opener/
 │   ├── mystery_of_the_fossils.json
 │   └── pokemon_jungle.json
 │
-└── saves/                          # 💾 Sistema de saves
-    ├── settings.json               # Configurações gerais
+└── saves/                          # Saves
+    ├── settings.json               # General settings
     ├── save_slot_1.json            # Slot 1
     ├── save_slot_2.json            # Slot 2
     └── save_slot_3.json            # Slot 3
@@ -107,70 +107,68 @@ Pymon_Pack_Opener/
 
 ---
 
-## 🖼️ Sistema de Imagens (modo real)
+## Real Images System
 
-### ✅ Como funciona
+### How it works
 
-* Cada pack tem um ficheiro JSON em `assets/` com o nome do **pack_slug**:
+* Each set has a JSON file in `assets/` named with its **pack_slug** (e.g., `assets/base_pack_set.json`, `assets/fossil.json`).
+* Each JSON maps:
 
-  * Ex.: `assets/base_pack_set.json`, `assets/fossil.json`, etc.
-* Cada JSON mapeia:
+  * **Card name** → **image path**
+  * Example: `"Alakazam": "assets/images/base_set/baseset-0.jpeg"`
+* The loader (`widgets/utils/image_loader.py`) reads the JSON for the current pack and loads the correct image.
+* Images are resized using **fit (contain)** so they **always fit inside the card slot** without cropping.
 
-  * **Nome da carta** → **path da imagem**
-  * Ex.: `"Alakazam": "assets/images/base_set/baseset-0.jpeg"`
-* O loader (`widgets/utils/image_loader.py`) lê o JSON do pack atual e carrega a imagem certa.
-* As imagens são redimensionadas com **fit (contain)** para **caberem dentro do slot**, sem cortar.
+### Requirements
 
-### 📌 Requisitos
-
-* As imagens devem existir nos paths referidos pelos JSON (normalmente dentro de `assets/images/...`).
-* Recomenda-se ter **Pillow** instalado (PIL) para melhor suporte de imagens:
+* Image files must exist at the paths referenced in the JSON (usually under `assets/images/...`).
+* Recommended: install Pillow for best image support:
 
   * `pip install pillow`
 
 ---
 
-## 📦 Sistema de Packs
+## Packs
 
-### **Packs Disponíveis**
+### Available Packs
 
-| Pack                   | Região | Cartas | Preço    | Nível Mínimo |
-| ---------------------- | ------ | ------ | -------- | ------------ |
-| Base Pack Set          | ENG    | 102    | 50 coins | 1            |
-| Expansion Pack         | JP     | 102    | 50 coins | 1            |
-| Jungle                 | ENG    | 32     | 25 coins | 1            |
-| Pokémon Jungle         | JP     | 48     | 25 coins | 1            |
-| Fossil                 | ENG    | 47     | 25 coins | 1            |
-| Mystery of the Fossils | JP     | 48     | 25 coins | 1            |
-| Base Set 2             | ENG    | 130    | 50 coins | 5            |
-
----
-
-## 🟦 Sistema de Raridades
-
-| Raridade  | Recompensa | XP    | Cor          |
-| --------- | ---------- | ----- | ------------ |
-| Common    | 5 coins    | 5 XP  | Cinza        |
-| Uncommon  | 10 coins   | 10 XP | Verde        |
-| Rare      | 25 coins   | 25 XP | Azul         |
-| Rare Holo | 50 coins   | 50 XP | Roxo/Dourado |
-| Energy    | 1 coin     | 2 XP  | Amarelo      |
+| Pack                   | Region | Cards | Price    | Minimum Level |
+| ---------------------- | ------ | ----- | -------- | ------------- |
+| Base Pack Set          | ENG    | 102   | 50 coins | 1             |
+| Expansion Pack         | JP     | 102   | 50 coins | 1             |
+| Jungle                 | ENG    | 32    | 25 coins | 1             |
+| Pokémon Jungle         | JP     | 48    | 25 coins | 1             |
+| Fossil                 | ENG    | 47    | 25 coins | 1             |
+| Mystery of the Fossils | JP     | 48    | 25 coins | 1             |
+| Base Set 2             | ENG    | 130   | 50 coins | 5             |
 
 ---
 
-## ▶️ Como executar
+## Rarities
 
-1. Instala dependências (recomendado):
+| Rarity    | Reward   | XP    | Color       |
+| --------- | -------- | ----- | ----------- |
+| Common    | 5 coins  | 5 XP  | Gray        |
+| Uncommon  | 10 coins | 10 XP | Green       |
+| Rare      | 25 coins | 25 XP | Blue        |
+| Rare Holo | 50 coins | 50 XP | Purple/Gold |
+| Energy    | 1 coin   | 2 XP  | Yellow      |
+
+---
+
+## How to Run
+
+1. Install dependencies (recommended):
 
 * `pip install pillow`
 
-2. Executa:
+2. Run:
 
 * `python main.py`
 
 ---
 
-## 🧩 Notas rápidas
+## Notes
 
-* O jogo guarda progresso em `saves/` (slots + definições).
-* Se uma imagem não existir ou o JSON não tiver a carta, o jogo usa fallback visual (texto/placeholder) sem crash.
+* Progress is saved in `saves/` (slots + settings).
+* If an image is missing or the JSON does not include a card, the UI falls back to a placeholder/text display without crashing.
