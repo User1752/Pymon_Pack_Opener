@@ -120,7 +120,6 @@ class CardWidget(tk.Frame):
         # ==================== IMAGEM DA CARTA (SEM RESIZE ADICIONAL) ==================== #
         if self.graphics_mode == "real" and self.image_loader:
             try:
-                # Carrega imagem JÁ REDIMENSIONADA do CardImageSystem
                 card_image = self.image_loader(self.card, target_size=(180, 215))
                 
                 if card_image:

@@ -54,7 +54,7 @@ class CardWidget(tk.Frame):
         """Exibe imagem da carta."""
         lbl = tk.Label(parent, image=img, bg=COLORS["accent"])
         lbl.pack(fill=tk.BOTH, expand=True)
-        lbl._img_ref = img  # mantém referência (evita desaparecer)
+        lbl._img_ref = img  
 
     def _display_text(self, parent, rarity_color):
         """Exibe informação da carta como texto."""
