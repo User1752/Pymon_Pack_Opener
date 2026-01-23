@@ -45,7 +45,7 @@ class ShopSystem:
         self.save_game_callback = None
         
         # ADICIONA: Callback para verificar modo debug
-        self.is_debug_mode = None  # Será setado externamente
+        self.is_debug_mode = None 
     
     def show(self, content_frame, show_welcome_callback, clear_content_callback):
         """Mostra interface da loja."""

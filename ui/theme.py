@@ -150,7 +150,7 @@ def create_card_with_border(parent, border_color: str = Colors.PRIMARY, **pack_k
     # Top border
     tk.Frame(card, bg=border_color, height=Sizes.BORDER_MEDIUM).pack(fill=tk.X)
     
-    # Content area
+    
     content = tk.Frame(card, bg=Colors.BG_CARD)
     content.pack(fill=tk.BOTH, expand=True, padx=Spacing.PAD_XLARGE, pady=Spacing.PAD_LARGE)
     
@@ -179,7 +179,7 @@ def create_button(parent, text, command, bg_color, **kwargs):
         text=text,
         font=button_font,
         bg=bg_color,
-        fg=Colors.TEXT_BUTTON,  # ✅ Agora esta existe!
+        fg=Colors.TEXT_BUTTON,  
         activebackground=bg_color,
         command=command,
         relief=tk.FLAT,
