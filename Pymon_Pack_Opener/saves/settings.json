@@ -1,0 +1,30 @@
+{
+  "palette": "Dark",
+  "graphics_mode": "real",
+  "show_notifications": false,
+  "profile": {
+    "icon": "Trainer",
+    "level": 9,
+    "xp": 10601,
+    "title": "Rookie",
+    "achievements": [
+      "first_steps",
+      "pack_opener",
+      "card_collector",
+      "rare_hunter",
+      "holo_master",
+      "pack_addict",
+      "coin_collector",
+      "novice_trainer",
+      "rich_trainer",
+      "dedicated_collector"
+    ],
+    "name": "Player",
+    "xp_current": 2301,
+    "xp_max": 3200,
+    "unlocked_avatars": [
+      "Trainer"
+    ],
+    "total_coins_earned": 10783
+  }
+}

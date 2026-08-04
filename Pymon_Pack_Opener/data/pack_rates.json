@@ -1,0 +1,75 @@
+{
+  "Base Set": {
+    "language": "ENG",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 0.33
+  },
+  "Jungle": {
+    "language": "ENG",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 0.33
+  },
+  "Fossil": {
+    "language": "ENG",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 0.33
+  },
+  "Base Set 2": {
+    "language": "ENG",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 0.33
+  },
+
+  
+
+  "Expansion Pack": {
+    "language": "JP",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 0.5
+  },
+  "Pokémon Jungle": {
+    "language": "JP",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 1.0
+  },
+  "Mystery of the Fossils": {
+    "language": "JP",
+    "cards_per_pack": 11,
+    "distribution": {
+      "rare": 1,
+      "uncommon": 3,
+      "common": 7
+    },
+    "holo_rare_chance": 1.0
+  }
+}
