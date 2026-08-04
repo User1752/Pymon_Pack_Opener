@@ -1,0 +1,141 @@
+{
+  "moves": {
+    "grass": {
+      "Poison Sting": {
+        "cost": { "grass": 1 },
+        "base_damage": 10,
+        "effect": {
+          "template": "poison_basic",
+          "override": { "damage_per_turn": 10 }
+        }
+      },
+      "Poison Sting 3": {
+        "cost": { "grass": 3 },
+        "base_damage": 40,
+        "effect": {
+          "template": "poison_basic",
+          "override": { "damage_per_turn": 10 }
+        }
+      },
+      "Vine Whip": {
+        "cost": {
+          "grass": 1,
+          "colorless": 2
+        },
+        "base_damage": 30,
+        "type": "damage_on_heads"     
+      },
+      "Poisonpowder": {
+        "cost": { "grass": 3 },
+        "base_damage": 20,
+        "effect": {
+          "type": "paralyze_basic",
+          "description": "The Defending Pokémon is now Poisoned"
+        }
+      },
+      "Leech Seed": {
+        "cost": { "grass": 2 },
+        "base_damage": 20,
+        "effect": {
+          "type": "heal_attacker",
+          "details": { "heal_amount": 10 },
+          "description": "Unless all damage from this attack is prevented you may remove 1 damage."
+        }
+      }
+    },
+
+    "water": {
+      "Star Freeze": {
+        "cost": {
+          "water": 1,
+          "colorless": 2
+        },
+        "base_damage": 20,
+        "effect": {
+          "type": "paralyze_basic",
+          "description": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+        }
+      },
+      "Slap": {
+        "cost": { "water": 1 },
+        "base_damage": 20,
+        "type": "damage_on_heads"     
+      },
+      "Bubblebeam": {
+        "cost": { "water": 4 },
+        "base_damage": 40,
+        "effect": {
+          "type": "damage_on_heads",
+          "details": {
+            "flips": 1,
+            "damage_per_head": 30
+          },
+          "description": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed"
+        }
+      },
+      "Dragon Rage": {
+        "cost": { "water": 3 },
+        "base_damage": 50,
+        "effect": {
+          "type": "damage_on_heads",
+          "description": "Base damage = 50"
+        }
+      },
+      "Recover": {
+        "cost": { "water": 2 },
+        "base_damage": 0,
+        "effect": {
+          "type": "recover_full_discard",
+          "details": { "energy_to_discard": 1 },
+          "description": "Discard 1 Water Energy card attached in order to use this attack. Remove all damage counters."
+        }
+      },
+      "Flail": {
+        "cost": { "water": 1 },
+        "base_damage": 0,
+        "effect": {
+          "type": "set_damage_from_attacker_counters",
+          "details": { "damage_per_counter": 10 },
+          "description": "Does 10 damage times the number of damage counters."
+        }
+      }
+    },
+
+    "psychic": {
+      
+    },
+
+    "colorless": {
+      "Stiffen": {
+        "cost": { "colorless": 2 },
+        "base_damage": 0,
+        "effect": {
+          "type": "self_shield_on_heads",
+          "details": { "shield_turns": 1 },
+          "description": "Flip a coin. If heads, prevent all damage done during your opponent's next turn.(Any other effects of attacks still happen)"
+        }
+      },
+
+      "Twineedle": {
+        "cost": { "colorless": 3 },
+        "base_damage": 0,
+        "effect": {
+          "type": "set_damage_from_heads",
+          "details": {
+            "flips": 2,
+            "damage_per_head": 30
+          },
+          "description": "Flip 2. Damage becomes 30 × heads."
+        }
+      },
+      "Tackle": {
+        "cost": { "colorless": 1 },
+        "base_damage": 10,
+        "effect": {
+          "type": "damage_on_heads",
+          "description": "Base damage = 10"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "effect_types": {
+    "status": {
+      "poison": {
+        "name": "Poison",
+        "damage_per_turn": 10,
+        "default_duration": 1,
+        "description": "Deals {damage_per_turn} damage during checkup"
+      },
+      "paralyze": {
+        "name": "Paralysis",
+        "default_duration": 1,
+        "description": "Cannot attack next turn"
+      },
+      "sleep": {
+        "name": "Sleep",
+        "default_duration": 1,
+        "description": "Cannot attack unless flip heads"
+      },
+      "confuse": {
+        "name": "Confusion",
+        "default_duration": -1,
+        "description": "50% chance to hit self"
+      }
+    },
+
+
+
+    "modifiers": {
+      "shield": {
+        "name": "Shield",
+        "description": "Protected from all damage"
+      },
+      "weakness": {
+        "name": "Weakness",
+        "multiplier": 2,
+        "description": "Takes double damage"
+      },
+      "resistance": {
+        "name": "Resistance",
+        "reduction": 30,
+        "description": "Takes {reduction} less damage"
+      }
+    }
+  },
+
+
+
+
+  "effect_triggers": {
+    "on_heads": {
+      "description": "Effect applies if coin flip is heads",
+      "flips": 1
+    },
+    "on_tails": {
+      "description": "Effect applies if coin flip is tails",
+      "flips": 1
+    },
+    "on_damage": {
+      "description": "Effect applies after damage is dealt"
+    },
+    "immediate": {
+      "description": "Effect applies immediately"
+    }
+  },
+
+
+
+
+
+  "effect_templates": {
+    "poison_basic": {
+      "type": "status",
+      "status": "poison",
+      "trigger": "on_heads",
+      "duration": 1
+    },
+    "paralyze_basic": {
+      "type": "status",
+      "status": "paralyze", 
+      "trigger": "on_heads",
+      "duration": 1
+    },
+    "shield_basic": {
+      "type": "modifiers",
+      "modifier": "shield",
+      "trigger": "on_heads",
+      "duration": 2,
+      "target": "self"
+    },
+    "damage_from_heads": {
+      "type": "damage_calc",
+      "trigger": "immediate",
+      "flips": 2,
+      "damage_per_flip": 30
+    },
+    "leech": {
+      "type": "heal",
+      "trigger": "on_damage",
+      "heal_amount": 10,
+      "target": "self"
+    },
+    "recoil": {
+      "type": "damage",
+      "trigger": "on_damage", 
+      "damage": 20,
+      "target": "self"
+    },
+    "full_heal": {
+      "type": "heal",
+      "trigger": "immediate",
+      "heal_amount": "all",
+      "target": "self",
+      "cost": {
+        "type": "discard_energy",
+        "amount": 1
+      }
+    }
+  },
+
+
+
+
+  "move_effects": {
+    "poison_sting": {
+      "kind": "status_on_heads",
+      "status": "poison",
+      "duration": 3,
+      "damage": 10,
+      "description": "Flip a coin. If heads, opponent becomes poisoned and takes 10 damage between turns."
+    },
+    "paralyze_on_heads": {
+      "kind": "status_on_heads",
+      "status": "paralyze",
+      "duration": 1,
+      "description": "Flip a coin. If heads, opponent is paralyzed"
+    }
+  },
+  "trainer_effects": {
+    "bill": {
+      "type": "draw",
+      "cards": 2,
+      "description": "Draw 2 cards."
+    },
+    "potion": {
+      "type": "heal",
+      "target": "active",
+      "amount": 20,
+      "description": "Remove up to 2 damage counters from 1 of your Pokémon."
+    },
+    "super_potion": {
+      "type": "heal",
+      "target": "active",
+      "amount": 40,
+      "cost": {
+        "type": "discard_energy",
+        "amount": 1
+      },
+      "description": "Discard 1 Energy card attached to 1 of your own Pokémon in order to remove up to 4 damage counters from that Pokémon."
+    },
+    "switch": {
+      "type": "swap",
+      "from": "active",
+      "to": "bench",
+      "description": "Switch 1 of your own Benched Pokémon with your Active Pokémon."
+    },
+    "gust_of_wind": {
+      "type": "swap",
+      "from": "opponent_active",
+      "to": "opponent_bench",
+      "description": "Choose 1 of your opponent's Benched Pokémon and switch it with his or her Active Pokémon."
+    }
+  }
+}

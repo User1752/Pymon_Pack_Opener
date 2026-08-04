@@ -1,0 +1,58 @@
+{
+  "pokemon_stats": {
+    "Weedle": {
+      "hp": 40,
+      "weakness": "Fire",
+      "resistance": null,
+      "type": "Grass"
+    },
+    "Kakuna": {
+      "hp": 80,
+      "weakness": "Fire",
+      "resistance": null,
+      "type": "Grass"
+    },
+    "Beedrill": {
+      "hp": 80,
+      "weakness": "Fire",
+      "resistance": "Fighting",
+      "type": "Grass"
+    },
+    "Bulbasaur": {
+      "hp": 40,
+      "weakness": "Fire",
+      "resistance": null,
+      "type": "Grass"
+    },
+    "Ivysaur": {
+      "hp": 60,
+      "weakness": "Fire",
+      "resistance": null,
+      "type": "Grass"
+    },
+    "Magikarp": {
+      "hp": 30,
+      "weakness": "Lightning",
+      "resistance": null,
+      "type": "Water"
+    },
+    "Gyarados": {
+      "hp": 100,
+      "weakness": "Grass",
+      "resistance": "Fighting",
+      "type": "Water"
+    },
+    "Staryu": {
+      "hp": 40,
+      "weakness": "Lightning",
+      "resistance": null,
+      "type": "Water"
+    },
+    "Starmie": {
+      "hp": 60,
+      "weakness": "Lightning",
+      "resistance": null,
+      "type": "Water"
+    }
+  }
+}

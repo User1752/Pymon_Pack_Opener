@@ -1,0 +1,158 @@
+{
+  "decks": [
+    {
+      "note": "=================================== Base Set Decks ===================================",
+      "name": "Overgrowth",
+      "subtitle": "Base Set",
+      "release_date": "January 9, 1999",
+      "types_used": ["Water", "Grass"],
+      "cards": [
+        { "quantity": 1, "card": "Beedrill",   "type": "Grass", "rarity": "Rare Holo" },
+        { "quantity": 4, "card": "Weedle",     "type": "Grass", "rarity": "Common" },
+        { "quantity": 2, "card": "Kakuna",     "type": "Grass", "rarity": "Uncommon" },
+        { "quantity": 4, "card": "Bulbasaur",  "type": "Grass", "rarity": "Common" },
+        { "quantity": 2, "card": "Ivysaur",    "type": "Grass", "rarity": "Uncommon" },
+        { "quantity": 1, "card": "Gyarados",   "type": "Water", "rarity": "Rare Holo" },
+        { "quantity": 2, "card": "Magikarp",   "type": "Water", "rarity": "Uncommon" },
+        { "quantity": 2, "card": "Staryu",     "type": "Water", "rarity": "Common" },
+        { "quantity": 3, "card": "Starmie",    "type": "Water", "rarity": "Uncommon" },
+        { "quantity": 16, "card": "Grass Energy", "type": "Grass", "rarity": "Energy" },
+        { "quantity": 12, "card": "Water Energy", "type": "Water", "rarity": "Energy" },
+        { "quantity": 2, "card": "Bill",           "type": "T", "rarity": "Common" },
+        { "quantity": 2, "card": "Gust of Wind",   "type": "T", "rarity": "Common" },
+        { "quantity": 1, "card": "Potion",         "type": "T", "rarity": "Common" },
+        { "quantity": 2, "card": "Super Potion",   "type": "T", "rarity": "Uncommon" },
+        { "quantity": 2, "card": "Switch",         "type": "T", "rarity": "Common" }
+      ]
+    },
+    {
+      "name": "Zap!",
+      "subtitle": "Base Set",
+      "release_date": "January 9, 1999",
+      "types_used": ["Lightning", "Psychic"],
+      "cards": [
+        { "quantity": 1,  "card": "Mewtwo",     "type": "Psychic",   "rarity": "Rare Holo" },
+        { "quantity": 1,  "card": "Kadabra",    "type": "Psychic",   "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Jynx",       "type": "Psychic",   "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Haunter",    "type": "Psychic",   "rarity": "Uncommon" },
+        { "quantity": 3,  "card": "Gastly",     "type": "Psychic",   "rarity": "Common" },
+        { "quantity": 2,  "card": "Drowzee",    "type": "Psychic",   "rarity": "Common" },
+        { "quantity": 3,  "card": "Abra",       "type": "Psychic",   "rarity": "Common" },
+        { "quantity": 4,  "card": "Pikachu",    "type": "Lightning", "rarity": "Common" },
+        { "quantity": 3,  "card": "Magnemite",  "type": "Lightning", "rarity": "Common" },
+        { "quantity": 1,  "card": "Computer Search", "type": "Trainer", "rarity": "Rare" },
+        { "quantity": 1,  "card": "Defender",       "type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Super Potion",   "type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Professor Oak",  "type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Switch",         "type": "Trainer", "rarity": "Common" },
+        { "quantity": 1,  "card": "Potion",         "type": "Trainer", "rarity": "Common" },
+        { "quantity": 2,  "card": "Gust of Wind",   "type": "Trainer", "rarity": "Common" },
+        { "quantity": 2,  "card": "Bill",           "type": "Trainer", "rarity": "Common" },
+        { "quantity": 12, "card": "Lightning Energy", "type": "Lightning", "rarity": "Energy" },
+        { "quantity": 16, "card": "Psychic Energy",   "type": "Psychic",   "rarity": "Energy" }
+      ]
+    },
+    {
+      "name": "Brushfire",
+      "subtitle": "Base Set",
+      "release_date": "January 9, 1999",
+      "types_used": ["Fire", "Grass"],
+      "cards": [
+        { "quantity": 1,  "card": "Ninetales",   "type": "Fire",   "rarity": "Rare Holo" },
+        { "quantity": 4,  "card": "Weedle",      "type": "Grass",  "rarity": "Common" },
+        { "quantity": 2,  "card": "Tangela",     "type": "Grass",  "rarity": "Common" },
+        { "quantity": 4,  "card": "Nidoran♂",    "type": "Grass",  "rarity": "Common" },
+        { "quantity": 1,  "card": "Arcanine",    "type": "Fire",   "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Growlithe",   "type": "Fire",   "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Charmeleon",  "type": "Fire",   "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Vulpix",      "type": "Fire",   "rarity": "Common" },
+        { "quantity": 4,  "card": "Charmander",  "type": "Fire",   "rarity": "Common" },
+        { "quantity": 1,  "card": "Lass",            "type": "Trainer", "rarity": "Rare" },
+        { "quantity": 1,  "card": "PlusPower",       "type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Energy Retrieval","type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Switch",          "type": "Trainer", "rarity": "Common" },
+        { "quantity": 3,  "card": "Potion",          "type": "Trainer", "rarity": "Common" },
+        { "quantity": 1,  "card": "Gust of Wind",    "type": "Trainer", "rarity": "Common" },
+        { "quantity": 1,  "card": "Energy Removal",  "type": "Trainer", "rarity": "Common" },
+        { "quantity": 10, "card": "Grass Energy", "type": "Grass", "rarity": "Energy" },
+        { "quantity": 18, "card": "Fire Energy",  "type": "Fire",  "rarity": "Energy" }
+      ]
+    },
+    {
+      "name": "Blackout",
+      "subtitle": "Base Set",
+      "release_date": "January 9, 1999",
+      "types_used": ["Water", "Fighting"],
+      "cards": [
+        { "quantity": 1,  "card": "Hitmonchan",  "type": "Fighting", "rarity": "Holofoil Rare" },
+        { "quantity": 2,  "card": "Farfetch'd",  "type": "Colorless","rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Wartortle",   "type": "Water",    "rarity": "Uncommon" },
+        { "quantity": 4,  "card": "Squirtle",    "type": "Water",    "rarity": "Common" },
+        { "quantity": 3,  "card": "Staryu",      "type": "Water",    "rarity": "Common" },
+        { "quantity": 3,  "card": "Onix",        "type": "Fighting", "rarity": "Common" },
+        { "quantity": 3,  "card": "Sandshrew",   "type": "Fighting", "rarity": "Common" },
+        { "quantity": 2,  "card": "Machoke",     "type": "Fighting", "rarity": "Uncommon" },
+        { "quantity": 4,  "card": "Machop",      "type": "Fighting", "rarity": "Common" },
+        { "quantity": 1,  "card": "Super Energy Removal", "type": "Trainer", "rarity": "Rare" },
+        { "quantity": 1,  "card": "PlusPower",           "type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Professor Oak",       "type": "Trainer", "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Gust of Wind",        "type": "Trainer", "rarity": "Common" },
+        { "quantity": 4,  "card": "Energy Removal",      "type": "Trainer", "rarity": "Common" },
+        { "quantity": 16, "card": "Fighting Energy", "type": "Fighting", "rarity": "Energy" },
+        { "quantity": 12, "card": "Water Energy",    "type": "Water",    "rarity": "Energy" }
+      ]
+    },
+    {
+      "note": "=================================== Jungle Set Decks ===================================",
+      "name": "Water Blast",
+      "subtitle": "Jungle Set",
+      "release_date": "June 16, 1999",
+      "types_used": ["Water", "Fighting"],
+      "cards": [
+        { "quantity": 1, "card": "Vaporeon", "type": "Water",      "rarity": "Holofoil Rare" },
+        { "quantity": 3,  "card": "Ryhorn",  "type": "Fighting",   "rarity": "Common" },
+        { "quantity": 4,  "card": "Meowth",  "type": "Colorless",  "rarity": "Common" },
+        { "quantity": 4,  "card": "Eevee",   "type": "Colorless",    "rarity": "Common" },
+        { "quantity": 1,  "card": "Rydon",    "type": "Fighting",    "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Persian",        "type": "Colorless",    "rarity": "Uncommon" },
+        { "quantity": 4,  "card": "Poliwag",        "type": "Fighting",     "rarity": "Common" },
+        { "quantity": 2,  "card": "Machop",         "type": "Fighting",     "rarity": "Common" },
+        { "quantity": 1,  "card": "Seel",           "type": "Water",    "rarity": "Uncommon" },
+        { "quantity": 2,  "card": "Poliwhirl",      "type": "Water",    "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Switch",         "type": "Trainer",  "rarity": "Common" },
+        { "quantity": 2,  "card": "Potion",         "type": "Trainer",  "rarity": "Common" },
+        { "quantity": 2,  "card": "Gust of Wind",      "type": "Trainer",     "rarity": "Common" },
+        { "quantity": 2,  "card": "Super Potion",      "type": "Trainer",     "rarity": "Uncommon" },
+        { "quantity": 1,  "card": "Professor Oak",     "type": "Trainer",     "rarity": "Uncommon" },
+        { "quantity": 14, "card": "Water Energy",      "type": "Water",       "rarity": "Energy" },
+        { "quantity": 14, "card": "Fighting Energy",   "type": "Fighting",    "rarity": "Energy" }
+      ]
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  ]
+}

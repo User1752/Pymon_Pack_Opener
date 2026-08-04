@@ -1,0 +1,83 @@
+{
+  "pokemon_properties": {
+    "Weedle": {
+      "retreat_cost": 1,
+      "description": "A hairy bug Pokémon. Its poison sting is powerful for such a small creature.",
+      "evolution_line": "Overgrowth",
+      "basic": true
+    },
+    "Kakuna": {
+      "retreat_cost": 2,
+      "description": "Almost incapable of moving, this Pokémon can only harden its shell to protect itself.",
+      "evolution_line": "Overgrowth",
+      "evolves_from": "Weedle",
+      "basic": false
+    },
+    "Beedrill": {
+      "retreat_cost": 0,
+      "description": "Flies at high speed and attacks using its large venomous stingers on its forelegs and tail.",
+      "evolution_line": "Overgrowth",
+      "evolves_from": "Kakuna",
+      "basic": false
+    },
+    "Bulbasaur": {
+      "retreat_cost": 1,
+      "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+      "evolution_line": "Overgrowth",
+      "basic": true
+    },
+    "Ivysaur": {
+      "retreat_cost": 1,
+      "description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.",
+      "evolution_line": "Overgrowth",
+      "evolves_from": "Bulbasaur",
+      "basic": false
+    },
+    "Venusaur": {
+      "retreat_cost": 2,
+      "description": "The plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight.",
+      "evolution_line": "Overgrowth",
+      "evolves_from": "Ivysaur",
+      "basic": false
+    },
+    "Magikarp": {
+      "retreat_cost": 1,
+      "description": "In the distant past, it was somewhat stronger than the horribly weak descendants that exist today.",
+      "evolution_line": "Overgrowth",
+      "basic": true
+    },
+    "Gyarados": {
+      "retreat_cost": 3,
+      "description": "Rarely seen in the wild. Huge and vicious, it is capable of destroying entire cities in a rage.",
+      "evolution_line": "Overgrowth",
+      "evolves_from": "Magikarp",
+      "basic": false
+    },
+    "Staryu": {
+      "retreat_cost": 1,
+      "description": "An enigmatic Pokémon that can effortlessly regenerate any appendage it loses in battle.",
+      "evolution_line": "Overgrowth",
+      "basic": true
+    },
+    "Starmie": {
+      "retreat_cost": 1,
+      "description": "Its central core glows with the seven colors of the rainbow. Some people value the core as a gem.",
+      "evolution_line": "Overgrowth",
+      "evolves_from": "Staryu",
+      "basic": false
+    },
+    "deck_families": {
+      "Overgrowth": {
+        "description": "A Water/Grass combination deck focused on evolution chains and status effects",
+        "strategy": "Use poison effects from Bug Pokémon while building up powerful Water-type attackers",
+        "main_types": ["Water", "Grass"],
+        "evolution_chains": [
+          ["Weedle", "Kakuna", "Beedrill"],
+          ["Bulbasaur", "Ivysaur", "Venusaur"],
+          ["Magikarp", "Gyarados"],
+          ["Staryu", "Starmie"]
+        ]
+      }
+    }
+  }
+}
